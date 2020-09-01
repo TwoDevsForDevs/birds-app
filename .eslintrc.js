@@ -1,3 +1,3 @@
-const eslintConfig = require('@omnirepo/eslint-config')
+const eslintConfig = require('@birds-app/eslint-config')
 
 module.exports = eslintConfig
