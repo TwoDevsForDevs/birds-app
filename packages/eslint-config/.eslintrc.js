@@ -20,12 +20,19 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: 'module'
   },
-  plugins: ['react', '@typescript-eslint', 'prettier', 'react-hooks'],
+  plugins: [
+    'react',
+    '@typescript-eslint',
+    'prettier',
+    'react-hooks'
+  ],
   rules: {
     'prettier/prettier': 'error',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/jsx-filename-extension': [1, { 'extensions': ['.tsx'] }],
+    'class-methods-use-this': 'off',
+    'camelcase': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
