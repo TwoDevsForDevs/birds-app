@@ -6,10 +6,6 @@
   "workspaces": {
     "packages": [
       "packages/*"
-    ],
-    "nohoist": [
-      "**/typeorm/**",
-      "**/typeorm"
     ]
   },
   "author": "Matheus Pires <matheushenriquepires99@gmail.com>",

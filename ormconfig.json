@@ -6,12 +6,12 @@
   "password": "docker",
   "database": "birds-app",
   "entities": [
-    ".packages/server/src/models/*.ts"
+    "./packages/server/src/models/*.ts"
   ],
   "migrations": [
-		".packages/server/src/database/migrations/*.ts"
+		"./packages/server/src/database/migrations/*.ts"
 	],
 	"cli": {
-		"migrationsDir": ".packages/server/src/database/migrations"
+		"migrationsDir": "./packages/server/src/database/migrations"
 	}
 }
