@@ -4,5 +4,14 @@
   "port": 5432,
   "username": "postgres",
   "password": "docker",
-  "database": "birds-app"
+  "database": "birds-app",
+  "entities": [
+    ".packages/server/src/models/*.ts"
+  ],
+  "migrations": [
+		".packages/server/src/database/migrations/*.ts"
+	],
+	"cli": {
+		"migrationsDir": ".packages/server/src/database/migrations"
+	}
 }
