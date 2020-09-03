@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "workspaces": {
-    "nohoist": [
-      "**/typeorm/**",
-      "**/typeorm"
-    ]
-  },
   "scripts": {
     "build": "tsc",
     "start": "tsnd --ignore node_modules --transpile-only --no-notify --respawn src/server.ts",
