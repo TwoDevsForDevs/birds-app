@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { Text, View } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import { AppLoading } from 'expo';
@@ -10,6 +11,8 @@ import {
 } from '@expo-google-fonts/roboto';
 
 import theme from './src/styles/theme';
+
+import Routes from './src/routes';
 
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -22,11 +25,11 @@ const App: React.FC = () => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <View>
-        <Text>Hello World</Text>
-      </View>
-    </ThemeProvider>
+    <NavigationContainer>
+      <ThemeProvider theme={theme}>
+        <Routes />
+      </ThemeProvider>
+    </NavigationContainer>
   );
 };
 
