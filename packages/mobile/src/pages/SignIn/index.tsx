@@ -1,17 +1,15 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 
-import Logo from '../../../assets/Test';
+// import Logo from '../../assets/logo.svg';
 
-import { Container, Title } from './styles';
+import { Text } from 'react-native';
+import { Container } from './styles';
 
 const SignIn: React.FC = () => {
   return (
     <Container>
-      <View>
-        <Logo />
-      </View>
-      <Title>Hello SignIn</Title>
+      {/* <Logo /> */}
+      <Text>Hello SignIn</Text>
     </Container>
   );
 };
