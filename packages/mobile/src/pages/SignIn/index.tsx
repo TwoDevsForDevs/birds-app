@@ -1,14 +1,14 @@
 import React from 'react';
-
-// import Logo from '../../assets/logo.svg';
-
 import { Text } from 'react-native';
+
 import { Container } from './styles';
+
+import Google from '../../assets/google.svg';
 
 const SignIn: React.FC = () => {
   return (
     <Container>
-      {/* <Logo /> */}
+      <Google />
       <Text>Hello SignIn</Text>
     </Container>
   );
