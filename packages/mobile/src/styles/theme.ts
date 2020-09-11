@@ -1,10 +1,10 @@
 export default {
   colors: {
     primary: '#272727',
-    primaryText: '#272727',
-    secundaryText: '#86868A',
-    background: '#FBFBFB',
+    black: '#272727',
+    grey: '#86868A',
     white: '#FFFFFF',
+    background: '#FBFBFB',
     backgroundModalOpen: 'rgba(0, 0, 0, 0.3)',
     inputBackground: '#EEEEEE',
     error: '#E74C3C'
