@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Feather as Icon } from '@expo/vector-icons';
 import * as Yup from 'yup';
 
+import { useAuth } from '../../hooks/auth';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from '../../components/Input';
@@ -43,6 +44,7 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
+  const { signIn } = useAuth();
 
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
@@ -66,6 +68,11 @@ const SignIn: React.FC = () => {
 
       await schema.validate(data, {
         abortEarly: false
+      });
+
+      await signIn({
+        email: data.email,
+        password: data.password
       });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {

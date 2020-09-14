@@ -15,6 +15,7 @@ import { Feather as Icon } from '@expo/vector-icons';
 import * as Yup from 'yup';
 
 import getValidationErrors from '../../utils/getValidationErrors';
+import api from '../../services/api';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -67,6 +68,8 @@ const SignUp: React.FC = () => {
           abortEarly: false
         });
 
+        await api.post('users', data);
+
         Alert.alert(
           'Cadastro realizado com sucesso!',
           'Você já pode fazer logon na aplicação.',
@@ -109,7 +112,7 @@ const SignUp: React.FC = () => {
           contentContainerStyle={{ flex: 1 }}
         >
           <Container>
-            <Title>Cria conta</Title>
+            <Title>Criar conta</Title>
 
             <Form
               ref={formRef}

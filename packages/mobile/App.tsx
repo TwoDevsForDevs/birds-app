@@ -9,6 +9,7 @@ import {
   useFonts
 } from '@expo-google-fonts/roboto';
 
+import AppProvider from './src/hooks';
 import Routes from './src/routes';
 import theme from './src/styles/theme';
 
@@ -24,9 +25,11 @@ const App: React.FC = () => {
 
   return (
     <NavigationContainer>
-      <ThemeProvider theme={theme}>
-        <Routes />
-      </ThemeProvider>
+      <AppProvider>
+        <ThemeProvider theme={theme}>
+          <Routes />
+        </ThemeProvider>
+      </AppProvider>
     </NavigationContainer>
   );
 };
