@@ -20,12 +20,22 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: 'module'
   },
-  plugins: ['react', '@typescript-eslint', 'prettier', 'react-hooks'],
+  plugins: [
+    'react',
+    '@typescript-eslint',
+    'prettier',
+    'react-hooks'
+  ],
   rules: {
     'prettier/prettier': 'error',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/jsx-filename-extension': [1, { 'extensions': ['.tsx'] }],
+    'class-methods-use-this': 'off',
+    'camelcase': 'off',
+    '@typescript-eslint/no-unused-vars': ['error', {
+      'argsIgnorePattern': '_'
+    }],
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -33,7 +43,9 @@ module.exports = {
         'ts': 'never',
         'tsx': 'never'
       }
-    ]
+    ],
+    'react/prop-types': 'off',
+    'react/jsx-props-no-spreading': 'off'
   },
   settings: {
     'import/resolver': {
