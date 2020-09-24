@@ -6,7 +6,7 @@
   "password": "docker",
   "database": "birds-app",
   "entities": [
-    "./src/models/*.ts"
+    "./src/modules/*/entities/*.ts"
   ],
   "migrations": [
 		"./src/database/migrations/*.ts"
