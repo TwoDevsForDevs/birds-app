@@ -2,3 +2,4 @@ node_modules
 dist
 yarn-error.log
 packages/server/tmp
+!packages/server/tmp/.gitkeep
