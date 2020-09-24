@@ -13,12 +13,31 @@ export const Container = styled.View`
   padding: 0 48px;
 `;
 
+export const ForgotPasswordButton = styled.TouchableOpacity`
+  margin: 10px 0;
+`;
+
+export const ForgotPasswordButtonText = styled.Text`
+  font-family: 'Roboto_700Bold';
+  font-size: 14px;
+  color: ${({ theme }) => theme.colors.grey};
+`;
+
+export const OrText = styled.Text`
+  font-family: 'Roboto_400Regular';
+  font-size: 12px;
+  color: ${({ theme }) => theme.colors.grey};
+  margin: 24px 0;
+`;
+
 export const SocialButtonsContainer = styled.View`
-  margin: 40px 0px 24px;
   width: 100%;
+
+  flex-direction: row;
 `;
 
 export const SocialButton = styled.TouchableOpacity`
+  flex: 1;
   background: ${({ theme }) => theme.colors.white};
   height: 48px;
   border-radius: ${({ theme }) => theme.radius.small};
@@ -38,35 +57,6 @@ export const SocialButtonText = styled.Text`
 export const GoogleIcon = styled(Google)``;
 
 export const FacebookIcon = styled(Facebook)``;
-
-export const OrContainer = styled.View`
-  margin-bottom: 24px;
-
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const OrLine = styled.View`
-  border: ${StyleSheet.hairlineWidth}px solid
-    ${({ theme }) => theme.colors.grey};
-  width: 108px;
-`;
-
-export const OrText = styled.Text`
-  font-family: 'Roboto_700Bold';
-  color: ${({ theme }) => theme.colors.grey};
-  margin: 0 16px;
-`;
-
-export const ForgotPasswordButton = styled.TouchableOpacity`
-  margin-top: 24px;
-`;
-
-export const ForgotPasswordButtonText = styled.Text`
-  font-family: 'Roboto_700Bold';
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.grey};
-`;
 
 export const CreateAccountButton = styled.TouchableOpacity`
   position: absolute;

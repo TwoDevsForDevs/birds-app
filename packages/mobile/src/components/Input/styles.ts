@@ -38,6 +38,7 @@ export const TextInput = styled.TextInput`
   flex: 1;
   color: ${({ theme }) => theme.colors.black};
   font-family: 'Roboto_400Regular';
+  font-size: 16px;
   padding: 0 16px;
 `;
 
