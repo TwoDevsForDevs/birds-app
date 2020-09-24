@@ -6,7 +6,11 @@ class ListBirdRegisterService {
   async execute(): Promise<BirdRegister[]> {
     const birdRegisterRepository = getRepository(BirdRegister);
 
-    const registers = birdRegisterRepository.find();
+    const registers = birdRegisterRepository.find({
+      where: {
+        status: true
+      }
+    });
 
     return registers;
   }
