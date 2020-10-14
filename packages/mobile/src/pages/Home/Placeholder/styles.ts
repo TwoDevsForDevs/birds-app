@@ -22,14 +22,14 @@ export const BirdsList = styled.View`
   margin-top: 32px;
 `;
 
-export const BirdsContainer = styled.View`
+export const BirdContainer = styled.View`
   margin-right: 16px;
-  width: 171px;
+  width: 160px;
 `;
 
 export const BirdImageShimmer = styled(Shimmer)`
   width: 100%;
-  height: 171px;
+  height: 160px;
   border-radius: ${({ theme }) => theme.radius.default};
 `;
 
