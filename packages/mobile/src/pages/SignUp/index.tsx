@@ -72,7 +72,7 @@ const SignUp: React.FC = () => {
 
         Alert.alert(
           'Cadastro realizado com sucesso!',
-          'Você já pode fazer logon na aplicação.',
+          'Você já pode fazer login na aplicação.',
           [
             {
               text: 'Fazer login',

@@ -40,7 +40,7 @@ const AppRoutes: React.FC = () => {
         },
         labelStyle: {
           fontFamily: 'Roboto_400Regular',
-          fontSize: 12,
+          fontSize: 10,
           marginBottom: 5
         },
         inactiveTintColor: colors.grey,
