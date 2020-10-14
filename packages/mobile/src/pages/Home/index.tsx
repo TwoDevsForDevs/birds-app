@@ -2,8 +2,8 @@ import React from 'react';
 
 import Header from './Header';
 import BirdsCarousel from './BirdsCarousel';
-import Loading from './Loading';
-import { Container, Content } from './styles';
+import Placeholder from './Placeholder';
+import { Container, MainContent } from './styles';
 
 const birds = [
   {
@@ -36,9 +36,9 @@ const Home: React.FC = () => {
     <Container>
       <Header />
 
-      <Content>
+      <MainContent>
         {loading ? (
-          <Loading />
+          <Placeholder />
         ) : (
           <>
             <BirdsCarousel title="Mais populares" birds={birds} />
@@ -48,7 +48,7 @@ const Home: React.FC = () => {
             <BirdsCarousel title="Não identificados" birds={birds} />
           </>
         )}
-      </Content>
+      </MainContent>
     </Container>
   );
 };
