@@ -1,5 +1,7 @@
 import 'react-native-gesture-handler';
+
 import React from 'react';
+import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
 import { AppLoading } from 'expo';
@@ -25,6 +27,12 @@ const App: React.FC = () => {
 
   return (
     <NavigationContainer>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="#FBFBFB"
+        translucent
+      />
+
       <AppProvider>
         <ThemeProvider theme={theme}>
           <Routes />
