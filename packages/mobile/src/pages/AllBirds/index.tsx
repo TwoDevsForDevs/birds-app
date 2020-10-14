@@ -55,8 +55,8 @@ const AllBirds: React.FC = () => {
       data.push({
         id: `empty-${lastRowElements}`,
         name: `empty-${lastRowElements}`,
-        scientific_name: `empty-${lastRowElements}`,
-        image_url: `empty-${lastRowElements}`,
+        scientific_name: '',
+        image_url: '',
         empty: true
       });
       lastRowElements += 1;
