@@ -1,14 +1,9 @@
 import React from 'react';
 
-import {
-  Container,
-  BirdsList,
-  Title,
-  BirdContainer,
-  BirdImage,
-  BirdName,
-  BirdScientificName
-} from './styles';
+import BirdCard from '../../../components/BirdCard';
+import Title from '../../../components/Title';
+
+import { Container, BirdsList } from './styles';
 
 export interface Birds {
   id: string;
@@ -33,16 +28,12 @@ const BirdsCarousel: React.FC<Props> = ({ title, birds }) => {
         data={birds}
         keyExtractor={bird => bird.id}
         renderItem={({ item: bird }) => (
-          <BirdContainer onPress={() => {}}>
-            <BirdImage
-              source={{
-                uri: bird.image_url
-              }}
-            />
-
-            <BirdName numberOfLines={1}>{bird.name}</BirdName>
-            <BirdScientificName>{bird.scientific_name}</BirdScientificName>
-          </BirdContainer>
+          <BirdCard
+            imageUrl={bird.image_url}
+            name={bird.name}
+            scientificName={bird.scientific_name}
+            onPress={() => {}}
+          />
         )}
       />
     </Container>

@@ -1,21 +1,8 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.SafeAreaView`
-  width: 100%;
-  position: relative;
+import Header from '../../../components/Header';
 
-  /* Android */
-  padding-top: 24px;
-`;
-
-export const Content = styled.View`
-  height: 56px;
-  padding: 0 24px;
-
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
+export const Container = styled(Header)``;
 
 export const UserAvatar = styled.View`
   width: 32px;
