@@ -5,7 +5,8 @@ import {
   Keyboard,
   ScrollView,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  View
 } from 'react-native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
@@ -22,16 +23,14 @@ import Button from '../../components/Button';
 
 import {
   Container,
+  ForgotPasswordButton,
+  ForgotPasswordButtonText,
+  OrText,
   SocialButtonsContainer,
   SocialButton,
   SocialButtonText,
   GoogleIcon,
   FacebookIcon,
-  OrContainer,
-  OrLine,
-  OrText,
-  ForgotPasswordButton,
-  ForgotPasswordButtonText,
   CreateAccountButton,
   CreateAccountButtonText
 } from './styles';
@@ -51,46 +50,49 @@ const SignIn: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = useCallback(async (data: SignInFormData) => {
-    Keyboard.dismiss();
+  const handleSubmit = useCallback(
+    async (data: SignInFormData) => {
+      Keyboard.dismiss();
 
-    try {
-      setLoading(true);
+      try {
+        setLoading(true);
 
-      formRef.current?.setErrors({});
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .email('Digite um e-mail válido')
-          .required('E-mail obrigatório'),
-        password: Yup.string().required('Senha obrigatória')
-      });
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .email('Digite um e-mail válido')
+            .required('E-mail obrigatório'),
+          password: Yup.string().required('Senha obrigatória')
+        });
 
-      await schema.validate(data, {
-        abortEarly: false
-      });
+        await schema.validate(data, {
+          abortEarly: false
+        });
 
-      await signIn({
-        email: data.email,
-        password: data.password
-      });
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
+        await signIn({
+          email: data.email,
+          password: data.password
+        });
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
 
-        formRef.current?.setErrors(errors);
+          formRef.current?.setErrors(errors);
 
-        return;
+          return;
+        }
+
+        Alert.alert(
+          'Erro na autenticação',
+          'Ocorreu um erro ao fazer login, cheque as credenciais'
+        );
+      } finally {
+        setLoading(false);
       }
-
-      Alert.alert(
-        'Erro na autenticação',
-        'Ocorreu um erro ao fazer login, cheque as credenciais'
-      );
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    },
+    [signIn]
+  );
 
   return (
     <KeyboardAvoidingView
@@ -103,24 +105,6 @@ const SignIn: React.FC = () => {
         contentContainerStyle={{ flex: 1 }}
       >
         <Container>
-          <SocialButtonsContainer>
-            <SocialButton>
-              <GoogleIcon />
-              <SocialButtonText>Google</SocialButtonText>
-            </SocialButton>
-
-            <SocialButton style={{ marginTop: 10 }}>
-              <FacebookIcon />
-              <SocialButtonText>Facebook</SocialButtonText>
-            </SocialButton>
-          </SocialButtonsContainer>
-
-          <OrContainer>
-            <OrLine />
-            <OrText>ou</OrText>
-            <OrLine />
-          </OrContainer>
-
           <Form ref={formRef} onSubmit={handleSubmit} style={{ width: '100%' }}>
             <Input
               autoCorrect={false}
@@ -144,6 +128,16 @@ const SignIn: React.FC = () => {
               placeholder="Senha"
             />
 
+            <ForgotPasswordButton
+              onPress={() => {
+                console.log('Navegar para tela de esqueci senha');
+              }}
+            >
+              <ForgotPasswordButtonText>
+                Esqueci minha senha
+              </ForgotPasswordButtonText>
+            </ForgotPasswordButton>
+
             <Button
               loading={loading}
               onPress={() => {
@@ -154,15 +148,21 @@ const SignIn: React.FC = () => {
             </Button>
           </Form>
 
-          <ForgotPasswordButton
-            onPress={() => {
-              console.log('Navegar para tela de esqueci senha');
-            }}
-          >
-            <ForgotPasswordButtonText>
-              Esqueci minha senha
-            </ForgotPasswordButtonText>
-          </ForgotPasswordButton>
+          <View>
+            <OrText>ou entre com:</OrText>
+          </View>
+
+          <SocialButtonsContainer>
+            <SocialButton style={{ marginRight: 24 }}>
+              <GoogleIcon />
+              <SocialButtonText>Google</SocialButtonText>
+            </SocialButton>
+
+            <SocialButton>
+              <FacebookIcon />
+              <SocialButtonText>Facebook</SocialButtonText>
+            </SocialButton>
+          </SocialButtonsContainer>
 
           <CreateAccountButton
             onPress={() => {
