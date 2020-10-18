@@ -2,7 +2,7 @@ import { getRepository } from 'typeorm';
 
 import Bird from '../entities/Bird';
 
-class CreateBirdService {
+class ListBirdsService {
   async execute(): Promise<Bird[]> {
     const birdRepository = getRepository(Bird);
 
@@ -16,4 +16,4 @@ class CreateBirdService {
   }
 }
 
-export default CreateBirdService;
+export default ListBirdsService;
