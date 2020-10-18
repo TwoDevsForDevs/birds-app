@@ -1,50 +1,50 @@
 /* eslint-disable react/jsx-wrap-multilines */
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import BirdCard from '../../components/BirdCard';
 import Title from '../../components/Title';
+import api from '../../services/api';
 
 import Header from './Header';
 import Placeholder from './Placeholder';
+import EmptyState from './EmptyState';
 import { Container, MainContent, BirdsList, EmptyItem } from './styles';
 
 export interface Birds {
   id: string;
-  name: string;
+  popular_name: string;
   scientific_name: string;
+  conservation: string;
+  habitat: string;
+  diet: string;
+  wikiaves_link: string;
   image_url: string;
   empty?: boolean;
 }
 
-const birds = [
-  {
-    id: '1',
-    name: 'Arara-vermelha-grande',
-    scientific_name: 'Ara chloropterus',
-    image_url:
-      'https://greensavers.sapo.pt/wp-content/uploads/2020/04/ararinha-azul.jpg',
-    empty: false
-  },
-  {
-    id: '2',
-    name: 'Arara-vermelha-grande',
-    scientific_name: 'Ara chloropterus',
-    image_url:
-      'https://greensavers.sapo.pt/wp-content/uploads/2020/04/ararinha-azul.jpg',
-    empty: false
-  },
-  {
-    id: '3',
-    name: 'Arara-vermelha-grande',
-    scientific_name: 'Ara chloropterus',
-    image_url:
-      'https://greensavers.sapo.pt/wp-content/uploads/2020/04/ararinha-azul.jpg',
-    empty: false
-  }
-];
-
 const AllBirds: React.FC = () => {
-  const loading = false;
+  const [birds, setBirds] = useState<Birds[]>([]);
+  const [searchBirds, setSearchBirds] = useState<Birds[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function getBirds() {
+      try {
+        setLoading(true);
+
+        const response = await api.get('/birds');
+
+        setBirds(response.data);
+        setSearchBirds(response.data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getBirds();
+  }, []);
 
   const createRows = useCallback((data: Birds[], columns: number) => {
     const rows = Math.floor(data.length / columns);
@@ -54,53 +54,67 @@ const AllBirds: React.FC = () => {
     while (lastRowElements !== columns) {
       data.push({
         id: `empty-${lastRowElements}`,
-        name: `empty-${lastRowElements}`,
+        popular_name: '',
         scientific_name: '',
+        conservation: '',
+        habitat: '',
+        diet: '',
+        wikiaves_link: '',
         image_url: '',
         empty: true
       });
+
       lastRowElements += 1;
     }
+
     return data;
   }, []);
 
+  const renderAllBirdsContent = useCallback(() => {
+    if (loading) {
+      return <Placeholder />;
+    }
+
+    if (searchBirds.length === 0) {
+      return <EmptyState />;
+    }
+
+    return (
+      <BirdsList
+        data={createRows(searchBirds, 2)}
+        ListHeaderComponent={
+          <Title style={{ paddingLeft: 0, marginBottom: 8 }}>
+            Todas as aves
+          </Title>
+        }
+        keyExtractor={bird => bird.id}
+        numColumns={2}
+        renderItem={({ item: bird }) => {
+          if (bird.empty) {
+            return <EmptyItem />;
+          }
+
+          return (
+            <BirdCard
+              imageUrl={bird.image_url}
+              name={bird.popular_name}
+              scientificName={bird.scientific_name}
+              onPress={() => {
+                console.log('Oi');
+              }}
+              style={{ marginTop: 24 }}
+            />
+          );
+        }}
+      />
+    );
+  }, [createRows, loading, searchBirds]);
+
   return (
     <Container>
-      <Header />
+      <Header birds={birds} setSearchBirds={setSearchBirds} />
 
-      <MainContent>
-        {loading ? (
-          <Placeholder />
-        ) : (
-          <BirdsList
-            data={createRows(birds, 2)}
-            ListHeaderComponent={
-              <Title style={{ paddingLeft: 0, marginBottom: 8 }}>
-                Todas as aves
-              </Title>
-            }
-            keyExtractor={bird => bird.id}
-            numColumns={2}
-            renderItem={({ item: bird }) => {
-              if (bird.empty) {
-                return <EmptyItem />;
-              }
-
-              return (
-                <BirdCard
-                  imageUrl={bird.image_url}
-                  name={bird.name}
-                  scientificName={bird.scientific_name}
-                  onPress={() => {
-                    console.log('Oi');
-                  }}
-                  style={{ marginTop: 24 }}
-                />
-              );
-            }}
-          />
-        )}
-      </MainContent>
+      <MainContent>{renderAllBirdsContent()}</MainContent>
     </Container>
   );
 };
