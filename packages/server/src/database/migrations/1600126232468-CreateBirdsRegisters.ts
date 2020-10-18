@@ -52,7 +52,7 @@ export default class CreateBirdsRegisters1600126232468
           {
             name: 'status',
             type: 'boolean',
-            default: 1
+            default: true
           },
           {
             name: 'created_at',

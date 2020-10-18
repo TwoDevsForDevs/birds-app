@@ -34,7 +34,7 @@ export default class CreateUsers1599004512458 implements MigrationInterface {
           {
             name: 'status',
             type: 'boolean',
-            default: 1
+            default: true
           },
           {
             name: 'created_at',
