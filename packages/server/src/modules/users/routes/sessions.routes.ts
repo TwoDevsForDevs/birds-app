@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { classToClass } from 'class-transformer';
 
 import AuthenticationService from '../services/AuthenticationService';
 
@@ -15,7 +16,7 @@ sessionsRouter.post('/', async (request, response) => {
   });
 
   return response.json({
-    user,
+    user: classToClass(user),
     token
   });
 });
