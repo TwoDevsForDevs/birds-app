@@ -1,15 +1,16 @@
 import { Request, Response } from 'express';
+import { classToClass } from 'class-transformer';
 
 import CreateBirdService from '../services/CreateBirdService';
-import ListBirdService from '../services/ListBirdService';
+import ListBirdsService from '../services/ListBirdsService';
 
 export default class BirdController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const listBirdService = new ListBirdService();
+    const listBirdsService = new ListBirdsService();
 
-    const birds = await listBirdService.execute();
+    const birds = await listBirdsService.execute();
 
-    return response.json(birds);
+    return response.json(classToClass(birds));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
