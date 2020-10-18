@@ -33,6 +33,9 @@ class Bird {
   @Column('varchar')
   wikiaves_link: string;
 
+  @Column('boolean')
+  status: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 
