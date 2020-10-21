@@ -25,8 +25,9 @@ export interface Birds {
 const AllBirds: React.FC = () => {
   const [birds, setBirds] = useState<Birds[]>([]);
   const [searchBirds, setSearchBirds] = useState<Birds[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [createdRows, setCreatedRows] = useState(false);
 
   useEffect(() => {
     async function getBirds() {
@@ -68,6 +69,8 @@ const AllBirds: React.FC = () => {
       lastRowElements += 1;
     }
 
+    setCreatedRows(true);
+
     return data;
   }, []);
 
@@ -78,13 +81,13 @@ const AllBirds: React.FC = () => {
 
     // if (error) {}
 
-    if (searchBirds.length === 0) {
+    if (!loading && searchBirds.length === 0) {
       return <EmptyState />;
     }
 
     return (
       <BirdsList
-        data={createRows(searchBirds, 2)}
+        data={createdRows ? createRows(searchBirds, 2) : searchBirds}
         ListHeaderComponent={
           <Title style={{ paddingLeft: 0, marginBottom: 8 }}>
             Todas as aves
