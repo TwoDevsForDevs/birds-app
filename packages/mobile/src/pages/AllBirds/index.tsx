@@ -26,6 +26,7 @@ const AllBirds: React.FC = () => {
   const [birds, setBirds] = useState<Birds[]>([]);
   const [searchBirds, setSearchBirds] = useState<Birds[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     async function getBirds() {
@@ -37,7 +38,7 @@ const AllBirds: React.FC = () => {
         setBirds(response.data);
         setSearchBirds(response.data);
       } catch (err) {
-        console.log(err);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -74,6 +75,8 @@ const AllBirds: React.FC = () => {
     if (loading) {
       return <Placeholder />;
     }
+
+    // if (error) {}
 
     if (searchBirds.length === 0) {
       return <EmptyState />;
