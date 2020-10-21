@@ -3,26 +3,47 @@ import { useNavigation } from '@react-navigation/native';
 import { Feather as Icon } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
 
+import { Birds } from '../index';
+
 import { Container, SearchInputContainer, SearchInput, Button } from './styles';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  birds: Birds[];
+  setSearchBirds(birds: Birds[]): void;
+}
+
+const Header: React.FC<HeaderProps> = ({ birds, setSearchBirds }) => {
   const navigation = useNavigation();
   const { colors } = useTheme();
 
   const [isSearching, setIsSearching] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
 
   const handleNavigateBackToHome = useCallback(() => {
     navigation.navigate('Home');
   }, [navigation]);
 
   const handleToggleSearch = useCallback(() => {
-    setIsSearching(!isSearching);
-  }, [isSearching]);
+    setSearchBirds(birds);
 
-  const handleSearch = useCallback(() => {
-    console.log(searchValue);
-  }, [searchValue]);
+    setIsSearching(!isSearching);
+  }, [setSearchBirds, birds, isSearching]);
+
+  const handleSearch = useCallback(
+    text => {
+      const birdsFiltered = birds.filter(bird => {
+        const birdPopularNameLowerCase = bird.popular_name.toLowerCase();
+        const birdScientificNameLowerCase = bird.scientific_name.toLowerCase();
+
+        return (
+          birdPopularNameLowerCase.includes(text.toLowerCase()) ||
+          birdScientificNameLowerCase.includes(text.toLowerCase())
+        );
+      });
+
+      return setSearchBirds(birdsFiltered);
+    },
+    [birds, setSearchBirds]
+  );
 
   return (
     <Container>
@@ -36,9 +57,7 @@ const Header: React.FC = () => {
               placeholder="Faça sua busca"
               placeholderTextColor={colors.grey}
               returnKeyType="send"
-              value={searchValue}
-              onChangeText={setSearchValue}
-              onSubmitEditing={handleSearch}
+              onChangeText={handleSearch}
             />
           </SearchInputContainer>
 

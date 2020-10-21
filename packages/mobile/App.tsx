@@ -11,7 +11,7 @@ import {
   useFonts
 } from '@expo-google-fonts/roboto';
 
-import AppProvider from './src/hooks';
+import AppProvider from './src/contexts';
 import Routes from './src/routes';
 import theme from './src/styles/theme';
 

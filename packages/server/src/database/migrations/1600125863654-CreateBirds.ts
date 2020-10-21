@@ -47,7 +47,7 @@ export default class CreateBirds1600125863654 implements MigrationInterface {
           {
             name: 'status',
             type: 'boolean',
-            default: 1
+            default: true
           },
           {
             name: 'created_at',

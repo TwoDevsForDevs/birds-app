@@ -4,7 +4,7 @@ import { Feather as Icon } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
 
-import { useAuth } from '../../../hooks/auth';
+import { useAuth } from '../../../hooks';
 
 import {
   Container,

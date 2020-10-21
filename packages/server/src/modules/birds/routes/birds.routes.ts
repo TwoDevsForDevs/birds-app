@@ -7,6 +7,7 @@ import BirdController from '../controllers/BirdController';
 
 const birdsRouter = Router();
 const upload = multer(uploadConfig);
+
 const birdController = new BirdController();
 
 birdsRouter.get('/', birdController.index);

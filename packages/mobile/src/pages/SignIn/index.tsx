@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Feather as Icon } from '@expo/vector-icons';
 import * as Yup from 'yup';
 
-import { useAuth } from '../../hooks/auth';
+import { useAuth } from '../../hooks';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from '../../components/Input';
