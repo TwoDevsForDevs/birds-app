@@ -1,15 +1,16 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import BirdCard from '../../components/BirdCard';
 import Title from '../../components/Title';
 import api from '../../services/api';
+import isOddNumber from '../../utils/isOddNumber';
 
 import Header from './Header';
 import Placeholder from './Placeholder';
 import EmptyState from './EmptyState';
 import { Container, MainContent, BirdsList, EmptyItem } from './styles';
-import isOddNumber from '../../utils/isOddNumber';
 
 export interface Birds {
   id: string;
@@ -23,6 +24,8 @@ export interface Birds {
 }
 
 const AllBirds: React.FC = () => {
+  const navigation = useNavigation();
+
   const [birds, setBirds] = useState<Birds[]>([]);
   const [searchBirds, setSearchBirds] = useState<Birds[]>([]);
   const [loading, setLoading] = useState(true);
@@ -46,6 +49,13 @@ const AllBirds: React.FC = () => {
 
     getBirds();
   }, []);
+
+  const handleNavigateToBird = useCallback(
+    (id: string) => {
+      navigation.navigate('Bird', { birdId: id });
+    },
+    [navigation]
+  );
 
   const renderAllBirdsContent = useCallback(() => {
     if (loading) {
@@ -75,9 +85,7 @@ const AllBirds: React.FC = () => {
                 imageUrl={bird.image_url}
                 name={bird.popular_name}
                 scientificName={bird.scientific_name}
-                onPress={() => {
-                  console.log('Oi');
-                }}
+                onPress={() => handleNavigateToBird(bird.id)}
                 style={{ marginTop: 24 }}
               />
 
@@ -87,7 +95,7 @@ const AllBirds: React.FC = () => {
         }}
       />
     );
-  }, [loading, searchBirds]);
+  }, [loading, searchBirds, handleNavigateToBird]);
 
   return (
     <Container>
