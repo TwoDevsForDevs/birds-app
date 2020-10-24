@@ -7,6 +7,7 @@ import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 import Home from '../pages/Home';
 import AllBirds from '../pages/AllBirds';
+import Bird from '../pages/Bird';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,6 +24,7 @@ const HomeRoutes: React.FC = () => {
     >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="AllBirds" component={AllBirds} />
+      <Stack.Screen name="Bird" component={Bird} />
     </Stack.Navigator>
   );
 };
