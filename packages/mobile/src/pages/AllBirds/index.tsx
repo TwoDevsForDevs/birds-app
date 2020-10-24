@@ -9,6 +9,7 @@ import Header from './Header';
 import Placeholder from './Placeholder';
 import EmptyState from './EmptyState';
 import { Container, MainContent, BirdsList, EmptyItem } from './styles';
+import isOddNumber from '../../utils/isOddNumber';
 
 export interface Birds {
   id: string;
@@ -19,7 +20,6 @@ export interface Birds {
   diet: string;
   wikiaves_link: string;
   image_url: string;
-  empty?: boolean;
 }
 
 const AllBirds: React.FC = () => {
@@ -27,7 +27,6 @@ const AllBirds: React.FC = () => {
   const [searchBirds, setSearchBirds] = useState<Birds[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [createdRows, setCreatedRows] = useState(false);
 
   useEffect(() => {
     async function getBirds() {
@@ -48,32 +47,6 @@ const AllBirds: React.FC = () => {
     getBirds();
   }, []);
 
-  const createRows = useCallback((data: Birds[], columns: number) => {
-    const rows = Math.floor(data.length / columns);
-
-    let lastRowElements = data.length - rows * columns;
-
-    while (lastRowElements !== columns) {
-      data.push({
-        id: `empty-${lastRowElements}`,
-        popular_name: '',
-        scientific_name: '',
-        conservation: '',
-        habitat: '',
-        diet: '',
-        wikiaves_link: '',
-        image_url: '',
-        empty: true
-      });
-
-      lastRowElements += 1;
-    }
-
-    setCreatedRows(true);
-
-    return data;
-  }, []);
-
   const renderAllBirdsContent = useCallback(() => {
     if (loading) {
       return <Placeholder />;
@@ -87,7 +60,7 @@ const AllBirds: React.FC = () => {
 
     return (
       <BirdsList
-        data={createdRows ? createRows(searchBirds, 2) : searchBirds}
+        data={searchBirds}
         ListHeaderComponent={
           <Title style={{ paddingLeft: 0, marginBottom: 8 }}>
             Todas as aves
@@ -96,25 +69,25 @@ const AllBirds: React.FC = () => {
         keyExtractor={bird => bird.id}
         numColumns={2}
         renderItem={({ item: bird }) => {
-          if (bird.empty) {
-            return <EmptyItem />;
-          }
-
           return (
-            <BirdCard
-              imageUrl={bird.image_url}
-              name={bird.popular_name}
-              scientificName={bird.scientific_name}
-              onPress={() => {
-                console.log('Oi');
-              }}
-              style={{ marginTop: 24 }}
-            />
+            <>
+              <BirdCard
+                imageUrl={bird.image_url}
+                name={bird.popular_name}
+                scientificName={bird.scientific_name}
+                onPress={() => {
+                  console.log('Oi');
+                }}
+                style={{ marginTop: 24 }}
+              />
+
+              {isOddNumber(searchBirds.length) && <EmptyItem />}
+            </>
           );
         }}
       />
     );
-  }, [createRows, loading, searchBirds]);
+  }, [loading, searchBirds]);
 
   return (
     <Container>
