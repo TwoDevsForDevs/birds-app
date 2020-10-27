@@ -1,10 +1,12 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { Text } from 'react-native';
+
+import api from '../../services/api';
 
 import BirdCard from '../../components/BirdCard';
 import Title from '../../components/Title';
-import api from '../../services/api';
 import isOddNumber from '../../utils/isOddNumber';
 
 import Header from './Header';
@@ -57,51 +59,49 @@ const AllBirds: React.FC = () => {
     [navigation]
   );
 
-  const renderAllBirdsContent = useCallback(() => {
-    if (loading) {
-      return <Placeholder />;
-    }
+  if (loading) {
+    return <Placeholder />;
+  }
 
-    // if (error) {}
+  if (error) {
+    return <Text>Error</Text>;
+  }
 
-    if (!loading && searchBirds.length === 0) {
-      return <EmptyState />;
-    }
-
-    return (
-      <BirdsList
-        data={searchBirds}
-        ListHeaderComponent={
-          <Title style={{ paddingLeft: 0, marginBottom: 8 }}>
-            Todas as aves
-          </Title>
-        }
-        keyExtractor={bird => bird.id}
-        numColumns={2}
-        renderItem={({ item: bird }) => {
-          return (
-            <>
-              <BirdCard
-                imageUrl={bird.image_url}
-                name={bird.popular_name}
-                scientificName={bird.scientific_name}
-                onPress={() => handleNavigateToBird(bird.id)}
-                style={{ marginTop: 24 }}
-              />
-
-              {isOddNumber(searchBirds.length) && <EmptyItem />}
-            </>
-          );
-        }}
-      />
-    );
-  }, [loading, searchBirds, handleNavigateToBird]);
+  if (!loading && searchBirds.length === 0) {
+    return <EmptyState />;
+  }
 
   return (
     <Container>
       <Header birds={birds} setSearchBirds={setSearchBirds} />
 
-      <MainContent>{renderAllBirdsContent()}</MainContent>
+      <MainContent>
+        <BirdsList
+          data={searchBirds}
+          ListHeaderComponent={
+            <Title style={{ paddingLeft: 0, marginBottom: 8 }}>
+              Todas as aves
+            </Title>
+          }
+          keyExtractor={bird => bird.id}
+          numColumns={2}
+          renderItem={({ item: bird }) => {
+            return (
+              <>
+                <BirdCard
+                  imageUrl={bird.image_url}
+                  name={bird.popular_name}
+                  scientificName={bird.scientific_name}
+                  onPress={() => handleNavigateToBird(bird.id)}
+                  style={{ marginTop: 24 }}
+                />
+
+                {isOddNumber(searchBirds.length) && <EmptyItem />}
+              </>
+            );
+          }}
+        />
+      </MainContent>
     </Container>
   );
 };
