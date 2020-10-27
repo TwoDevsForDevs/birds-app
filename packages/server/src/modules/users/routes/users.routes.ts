@@ -1,22 +1,10 @@
 import { Router } from 'express';
-import { classToClass } from 'class-transformer';
 
-import CreateUserService from '../services/CreateUserService';
+import UserController from '../controllers/UserController';
 
 const usersRouter = Router();
+const userController = new UserController();
 
-usersRouter.post('/', async (request, response) => {
-  const { name, email, password } = request.body;
-
-  const createUser = new CreateUserService();
-
-  const user = await createUser.execute({
-    name,
-    email,
-    password
-  });
-
-  return response.json(classToClass(user));
-});
+usersRouter.post('/', userController.create);
 
 export default usersRouter;
