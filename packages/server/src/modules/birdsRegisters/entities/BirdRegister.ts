@@ -49,6 +49,9 @@ class BirdRegister {
   @Column('integer')
   views: number;
 
+  @Column('boolean')
+  status: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 
