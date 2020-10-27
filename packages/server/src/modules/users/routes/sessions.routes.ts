@@ -1,24 +1,10 @@
 import { Router } from 'express';
-import { classToClass } from 'class-transformer';
 
-import AuthenticationService from '../services/AuthenticationService';
+import SessionController from '../controllers/SessionController';
 
 const sessionsRouter = Router();
+const sessionController = new SessionController();
 
-sessionsRouter.post('/', async (request, response) => {
-  const { email, password } = request.body;
-
-  const authentication = new AuthenticationService();
-
-  const { user, token } = await authentication.execute({
-    email,
-    password
-  });
-
-  return response.json({
-    user: classToClass(user),
-    token
-  });
-});
+sessionsRouter.post('/', sessionController.create);
 
 export default sessionsRouter;
