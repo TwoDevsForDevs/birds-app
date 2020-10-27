@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Linking, Alert } from 'react-native';
+import { Linking, Alert, Text } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
 import api from '../../services/api';
@@ -7,6 +7,7 @@ import api from '../../services/api';
 import Title from '../../components/Title';
 import GoBackButton from '../../components/GoBackButton';
 import Header from '../../components/Header';
+import BirdGallery from '../../components/BirdGallery';
 
 import {
   Container,
@@ -33,6 +34,17 @@ interface Bird {
   wikiaves_link: string;
   image_url: string;
 }
+interface BirdRegister {
+  id: string;
+  owner_id: string;
+  bird_id: string;
+  image_url: string;
+  location: string;
+  register_date: string;
+  obs: string;
+  likes: number;
+  views: number;
+}
 
 const Bird: React.FC = () => {
   const route = useRoute();
@@ -40,19 +52,30 @@ const Bird: React.FC = () => {
   const routeParams = route.params as RouteParams;
 
   const [bird, setBird] = useState({} as Bird);
+  const [birdRegisters, setBirdRegisters] = useState<BirdRegister[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    async function getBird() {
+    async function getBirds() {
       try {
-        const response = await api.get(`birds/${routeParams.birdId}`);
+        setLoading(true);
 
-        setBird(response.data);
+        const [birdsResponse, birdRegistersResponse] = await Promise.all([
+          api.get(`birds/${routeParams.birdId}`),
+          api.get(`birds-registers?bird_id=${routeParams.birdId}`)
+        ]);
+
+        setBird(birdsResponse.data);
+        setBirdRegisters(birdRegistersResponse.data);
       } catch (err) {
-        console.log(err);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     }
 
-    getBird();
+    getBirds();
   }, [routeParams.birdId]);
 
   const handleOpenBrowser = useCallback(async (wikiAvesUrl: string) => {
@@ -63,6 +86,22 @@ const Bird: React.FC = () => {
       Alert.alert('Error', 'Ocorreu um erro ao tentar abrir a página web.');
     }
   }, []);
+
+  if (loading) {
+    return (
+      <Container>
+        <Text>Carregando...</Text>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container>
+        <Text>Error</Text>
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -102,6 +141,8 @@ const Bird: React.FC = () => {
 
           <BirdInfo>
             <Label>Galeria:</Label>
+
+            <BirdGallery birdRegisters={birdRegisters} />
           </BirdInfo>
         </BirdInfoContainer>
       </Content>

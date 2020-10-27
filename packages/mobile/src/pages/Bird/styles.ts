@@ -4,11 +4,14 @@ export const Container = styled.View`
   flex: 1;
 `;
 
-export const Content = styled.ScrollView``;
+export const Content = styled.ScrollView.attrs({
+  contentContainerStyle: { paddingHorizontal: 24 },
+  showsVerticalScrollIndicator: false
+})``;
 
 export const BirdImage = styled.Image`
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 304px;
   border-radius: ${({ theme }) => theme.radius.default};
 
   align-self: center;
@@ -16,7 +19,6 @@ export const BirdImage = styled.Image`
 
 export const BirdInfoContainer = styled.View`
   margin-top: 32px;
-  /* padding: 0 24px; */
 `;
 
 export const BirdInfo = styled.View`
