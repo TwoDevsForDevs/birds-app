@@ -1,9 +1,21 @@
 import styled from 'styled-components/native';
+
+import Header from '../../../components/Header';
 import Shimmer from '../../../components/Shimmer';
 
-export const Container = styled.View`
+export const Container = styled.View``;
+
+export const HeaderContent = styled(Header)``;
+
+export const HeaderContentButton = styled(Shimmer)`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+`;
+
+export const Content = styled.View`
   padding: 0 24px;
-  margin-bottom: 40px;
+  margin-top: 32px;
 `;
 
 export const TitleSmallShimmer = styled(Shimmer)`
