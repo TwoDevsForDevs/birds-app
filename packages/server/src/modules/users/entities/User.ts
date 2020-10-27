@@ -25,6 +25,9 @@ class User {
   @Column('varchar')
   avatar: string;
 
+  @Column('boolean')
+  status: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 
