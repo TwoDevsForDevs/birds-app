@@ -37,6 +37,7 @@ interface Bird {
   wikiaves_link: string;
   image_url: string;
 }
+
 interface BirdRegister {
   id: string;
   owner_id: string;
