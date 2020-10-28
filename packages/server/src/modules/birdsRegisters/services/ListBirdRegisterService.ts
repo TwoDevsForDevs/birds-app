@@ -20,6 +20,8 @@ class ListBirdRegisterService {
           bird_id
         }
       });
+
+      return registers;
     }
 
     if (user_id) {
@@ -29,6 +31,8 @@ class ListBirdRegisterService {
           owner_id: user_id
         }
       });
+
+      return registers;
     }
 
     registers = birdRegisterRepository.find({
