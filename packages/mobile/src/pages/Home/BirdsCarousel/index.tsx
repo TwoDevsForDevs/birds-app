@@ -20,7 +20,7 @@ interface Props {
 const BirdsCarousel: React.FC<Props> = ({ title, birds }) => {
   return (
     <Container>
-      <Title>{title}</Title>
+      <Title style={{ paddingLeft: 24 }}>{title}</Title>
 
       <BirdsList
         horizontal

@@ -1,9 +1,13 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Text } from 'react-native';
+
+import api from '../../services/api';
 
 import BirdCard from '../../components/BirdCard';
 import Title from '../../components/Title';
-import api from '../../services/api';
+import isOddNumber from '../../utils/isOddNumber';
 
 import Header from './Header';
 import Placeholder from './Placeholder';
@@ -19,15 +23,15 @@ export interface Birds {
   diet: string;
   wikiaves_link: string;
   image_url: string;
-  empty?: boolean;
 }
 
 const AllBirds: React.FC = () => {
+  const navigation = useNavigation();
+
   const [birds, setBirds] = useState<Birds[]>([]);
   const [searchBirds, setSearchBirds] = useState<Birds[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [createdRows, setCreatedRows] = useState(false);
 
   useEffect(() => {
     async function getBirds() {
@@ -48,79 +52,56 @@ const AllBirds: React.FC = () => {
     getBirds();
   }, []);
 
-  const createRows = useCallback((data: Birds[], columns: number) => {
-    const rows = Math.floor(data.length / columns);
+  const handleNavigateToBird = useCallback(
+    (id: string) => {
+      navigation.navigate('Bird', { birdId: id });
+    },
+    [navigation]
+  );
 
-    let lastRowElements = data.length - rows * columns;
+  if (loading) {
+    return <Placeholder />;
+  }
 
-    while (lastRowElements !== columns) {
-      data.push({
-        id: `empty-${lastRowElements}`,
-        popular_name: '',
-        scientific_name: '',
-        conservation: '',
-        habitat: '',
-        diet: '',
-        wikiaves_link: '',
-        image_url: '',
-        empty: true
-      });
+  if (error) {
+    return <Text>Error</Text>;
+  }
 
-      lastRowElements += 1;
-    }
-
-    setCreatedRows(true);
-
-    return data;
-  }, []);
-
-  const renderAllBirdsContent = useCallback(() => {
-    if (loading) {
-      return <Placeholder />;
-    }
-
-    // if (error) {}
-
-    if (!loading && searchBirds.length === 0) {
-      return <EmptyState />;
-    }
-
-    return (
-      <BirdsList
-        data={createdRows ? createRows(searchBirds, 2) : searchBirds}
-        ListHeaderComponent={
-          <Title style={{ paddingLeft: 0, marginBottom: 8 }}>
-            Todas as aves
-          </Title>
-        }
-        keyExtractor={bird => bird.id}
-        numColumns={2}
-        renderItem={({ item: bird }) => {
-          if (bird.empty) {
-            return <EmptyItem />;
-          }
-
-          return (
-            <BirdCard
-              imageUrl={bird.image_url}
-              name={bird.popular_name}
-              scientificName={bird.scientific_name}
-              onPress={() => {
-                console.log('Oi');
-              }}
-              style={{ marginTop: 24 }}
-            />
-          );
-        }}
-      />
-    );
-  }, [createRows, loading, searchBirds]);
+  if (!loading && searchBirds.length === 0) {
+    return <EmptyState />;
+  }
 
   return (
     <Container>
       <Header birds={birds} setSearchBirds={setSearchBirds} />
 
-      <MainContent>{renderAllBirdsContent()}</MainContent>
+      <MainContent>
+        <BirdsList
+          data={searchBirds}
+          ListHeaderComponent={
+            <Title style={{ paddingLeft: 0, marginBottom: 8 }}>
+              Todas as aves
+            </Title>
+          }
+          keyExtractor={bird => bird.id}
+          numColumns={2}
+          renderItem={({ item: bird }) => {
+            return (
+              <>
+                <BirdCard
+                  imageUrl={bird.image_url}
+                  name={bird.popular_name}
+                  scientificName={bird.scientific_name}
+                  onPress={() => handleNavigateToBird(bird.id)}
+                  style={{ marginTop: 24 }}
+                />
+
+                {isOddNumber(searchBirds.length) && <EmptyItem />}
+              </>
+            );
+          }}
+        />
+      </MainContent>
     </Container>
   );
 };

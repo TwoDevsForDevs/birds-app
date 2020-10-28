@@ -18,41 +18,26 @@ export const Content = styled.View`
   margin-top: 32px;
 `;
 
-export const TitleSmallShimmer = styled(Shimmer)`
-  width: 40%;
-  height: 32px;
-  margin-bottom: 8px;
-`;
-
-export const TitleLargeShimmer = styled(Shimmer)`
+export const TitleShimmer = styled(Shimmer)`
   width: 60%;
-  height: 32px;
-`;
-
-export const BirdsList = styled.View`
-  flex-direction: row;
-  margin-top: 32px;
-`;
-
-export const BirdContainer = styled.View`
-  margin-right: 16px;
-  width: 160px;
+  height: 42px;
+  margin-bottom: 32px;
 `;
 
 export const BirdImageShimmer = styled(Shimmer)`
   width: 100%;
-  height: 160px;
+  height: 304px;
   border-radius: ${({ theme }) => theme.radius.default};
+  margin-bottom: 32px;
 `;
 
-export const BirdNameShimmer = styled(Shimmer)`
-  margin-top: 16px;
+export const BirdLabelShimmer = styled(Shimmer)`
   height: 16px;
-  width: 90%;
+  width: 80px;
 `;
 
-export const BirdScientificNameShimmer = styled(Shimmer)`
-  margin-top: 4px;
-  height: 12px;
-  width: 60%;
+export const InfoTextShimmer = styled(Shimmer)`
+  margin-top: 8px;
+  height: 18px;
+  width: 174px;
 `;

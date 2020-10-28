@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { Feather as Icon } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
 
-import { Birds } from '../index';
+import GoBackButton from '../../../components/GoBackButton';
 
+import { Birds } from '../index';
 import { Container, SearchInputContainer, SearchInput, Button } from './styles';
 
 interface HeaderProps {
@@ -13,14 +13,9 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ birds, setSearchBirds }) => {
-  const navigation = useNavigation();
   const { colors } = useTheme();
 
   const [isSearching, setIsSearching] = useState(false);
-
-  const handleNavigateBackToHome = useCallback(() => {
-    navigation.navigate('Home');
-  }, [navigation]);
 
   const handleToggleSearch = useCallback(() => {
     setSearchBirds(birds);
@@ -67,9 +62,7 @@ const Header: React.FC<HeaderProps> = ({ birds, setSearchBirds }) => {
         </>
       ) : (
         <>
-          <Button onPress={handleNavigateBackToHome}>
-            <Icon name="chevron-left" size={20} color={colors.black} />
-          </Button>
+          <GoBackButton />
 
           <Button onPress={handleToggleSearch}>
             <Icon name="search" size={20} color={colors.black} />
