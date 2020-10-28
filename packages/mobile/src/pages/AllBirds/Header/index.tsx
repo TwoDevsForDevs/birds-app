@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 import { Feather as Icon } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
 
-import { Birds } from '../index';
-
-import { Container, SearchInputContainer, SearchInput, Button } from './styles';
 import GoBackButton from '../../../components/GoBackButton';
+
+import { Birds } from '../index';
+import { Container, SearchInputContainer, SearchInput, Button } from './styles';
 
 interface HeaderProps {
   birds: Birds[];
