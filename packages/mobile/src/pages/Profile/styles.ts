@@ -1,19 +1,18 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  height: 25%;
+  height: 30%;
 `;
 
 export const Header = styled.View`
+  flex-direction: row;
   flex: 1;
-  padding: 32px 24px 24px;
-  justify-content: center;
+  padding: 48px 24px 24px;
+  align-items: center;
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
-export const HelloContainer = styled.View`
-  padding: 16px;
-`;
+export const HelloContainer = styled.View``;
 
 export const Hello = styled.Text`
   font-family: 'Roboto_700Bold';
@@ -29,12 +28,12 @@ export const UserName = styled.Text`
 `;
 
 export const UserAvatarButton = styled.TouchableOpacity`
-  margin-top: 32px;
+  padding-top: 16px;
 `;
 
 export const UserAvatar = styled.Image`
-  width: 186px;
-  height: 186px;
-  border-radius: 96px;
+  width: 156px;
+  height: 156px;
+  border-radius: 73px;
   align-self: center;
 `;

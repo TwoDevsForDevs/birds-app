@@ -1,10 +1,14 @@
 import React, { useCallback } from 'react';
+import { Alert } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as ImagePicker from 'expo-image-picker';
+
+import api from '../../services/api';
 
 import { useAuth } from '../../hooks';
 
 import MyData from './MyData';
+import MyRegisters from './MyRegisters';
 
 import {
   Container,
@@ -18,24 +22,39 @@ import {
 
 const Tab = createMaterialTopTabNavigator();
 
-const Test1: React.FC = () => {
-  return (
-    <Container>
-      <UserName>Teste1</UserName>
-    </Container>
-  );
-};
-
 const Profile: React.FC = () => {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
 
   const handleUpdateAvatar = useCallback(async () => {
     const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
 
     if (status !== 'granted') {
-      alert('Sorry, we need camera roll permissions to make this work!');
+      Alert.alert(
+        'Você precisa permitir acesso a galeria para mudar a foto de perfil.'
+      );
     }
-  }, []);
+
+    const response = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.5
+    });
+
+    if (!response.cancelled) {
+      const data = new FormData();
+
+      data.append('avatar', {
+        type: 'image/jpeg',
+        name: `${user.id}.jpg`,
+        uri: response.uri
+      });
+
+      api.patch('/users/avatar', data).then(apiResponse => {
+        updateUser(apiResponse.data);
+      });
+    }
+  }, [updateUser, user.id]);
 
   return (
     <>
@@ -43,7 +62,7 @@ const Profile: React.FC = () => {
         <Header>
           <HelloContainer>
             <Hello>Olá,</Hello>
-            <UserName>Paulo Henrique</UserName>
+            <UserName>{user.name}</UserName>
           </HelloContainer>
           <UserAvatarButton onPress={handleUpdateAvatar}>
             <UserAvatar source={{ uri: user.avatar_url }} />
@@ -51,7 +70,7 @@ const Profile: React.FC = () => {
         </Header>
       </Container>
       <Tab.Navigator>
-        <Tab.Screen name="Minhas fotos" component={Test1} />
+        <Tab.Screen name="Minhas fotos" component={MyRegisters} />
         <Tab.Screen name="Meus dados" component={MyData} />
       </Tab.Navigator>
     </>
