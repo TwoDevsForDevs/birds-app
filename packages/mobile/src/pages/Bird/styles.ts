@@ -4,6 +4,11 @@ export const Container = styled.View`
   flex: 1;
 `;
 
+export const HeaderBirdPopularName = styled.Text`
+  font-family: 'Roboto_700Bold';
+  font-size: 16px;
+`;
+
 export const Content = styled.ScrollView.attrs({
   contentContainerStyle: { paddingHorizontal: 24 },
   showsVerticalScrollIndicator: false
