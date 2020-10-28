@@ -60,7 +60,7 @@ class BirdRegister {
 
   @Expose({ name: 'image_url' })
   getImageUrl(): string | null {
-    return this.image ? `http://localhost:3333/files/${this.image}` : null;
+    return this.image ? `http://192.168.0.112:3333/files/${this.image}` : null;
   }
 }
 
