@@ -1,7 +1,6 @@
 import React from 'react';
-import { Text } from 'react-native';
 
-import { Container } from './styles';
+import { Container, RegisterButton, BirdImage } from './styles';
 
 export interface BirdRegister {
   id: string;
@@ -17,26 +16,23 @@ export interface BirdRegister {
 
 interface Props {
   birdRegisters: BirdRegister[];
+  onPress: () => void;
 }
 
-const BirdGallery: React.FC<Props> = ({ children, birdRegisters }) => {
+const BirdGallery: React.FC<Props> = ({ birdRegisters, onPress }) => {
   return (
     <Container
       data={birdRegisters}
       keyExtractor={register => register.id}
-      numColumns={4}
+      numColumns={3}
       renderItem={({ item: register }) => {
         return (
-          <>
-            <Text>{register.obs}</Text>
-
-            {/* {isOddNumber(register.length) && <EmptyItem />} */}
-          </>
+          <RegisterButton activeOpacity={0.8} onPress={onPress}>
+            <BirdImage source={{ uri: register.image_url }} />
+          </RegisterButton>
         );
       }}
-    >
-      {children}
-    </Container>
+    />
   );
 };
 
