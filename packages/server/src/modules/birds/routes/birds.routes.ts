@@ -11,6 +11,7 @@ const upload = multer(uploadConfig);
 const birdController = new BirdController();
 
 birdsRouter.get('/', birdController.index);
+birdsRouter.get('/:id', birdController.show);
 birdsRouter.post('/', upload.single('image'), birdController.create);
 
 export default birdsRouter;

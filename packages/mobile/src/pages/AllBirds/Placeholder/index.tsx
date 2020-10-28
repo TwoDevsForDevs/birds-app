@@ -2,6 +2,9 @@ import React from 'react';
 
 import {
   Container,
+  HeaderContent,
+  HeaderContentButton,
+  Content,
   TitleSmallShimmer,
   TitleLargeShimmer,
   BirdsList,
@@ -41,12 +44,19 @@ const Placeholder: React.FC = () => {
 
   return (
     <Container>
-      <TitleSmallShimmer />
-      <TitleLargeShimmer />
+      <HeaderContent>
+        <HeaderContentButton />
+        <HeaderContentButton />
+      </HeaderContent>
 
-      <Carousel />
-      <Carousel />
-      <Carousel />
+      <Content>
+        <TitleSmallShimmer />
+        <TitleLargeShimmer />
+
+        <Carousel />
+        <Carousel />
+        <Carousel />
+      </Content>
     </Container>
   );
 };

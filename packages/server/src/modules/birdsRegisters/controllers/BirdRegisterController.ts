@@ -1,15 +1,21 @@
 import { Request, Response } from 'express';
+import { classToClass } from 'class-transformer';
 
 import CreateBirdRegisterService from '../services/CreateBirdRegisterService';
 import ListBirdRegisterService from '../services/ListBirdRegisterService';
 
 export default class BirdRegisterController {
   public async index(request: Request, response: Response): Promise<Response> {
+    const { bird_id, user_id } = request.query;
+
     const listBirdRegisterService = new ListBirdRegisterService();
 
-    const registers = await listBirdRegisterService.execute();
+    const registers = await listBirdRegisterService.execute({
+      bird_id,
+      user_id
+    });
 
-    return response.json(registers);
+    return response.json(classToClass(registers));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
