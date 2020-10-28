@@ -3,6 +3,7 @@ import { classToClass } from 'class-transformer';
 
 import CreateBirdRegisterService from '../services/CreateBirdRegisterService';
 import ListBirdRegisterService from '../services/ListBirdRegisterService';
+import ShowBirdRegisterService from '../services/ShowBirdRegisterService';
 
 export default class BirdRegisterController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -16,6 +17,18 @@ export default class BirdRegisterController {
     });
 
     return response.json(classToClass(registers));
+  }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { id: register_id } = request.params;
+
+    const showBirdRegisterService = new ShowBirdRegisterService();
+
+    const register = await showBirdRegisterService.execute({
+      register_id
+    });
+
+    return response.json(classToClass(register));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
