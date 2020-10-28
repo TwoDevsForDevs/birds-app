@@ -1,10 +1,15 @@
 import React from 'react';
+import { ViewStyle } from 'react-native';
 
 import { Container, Content } from './styles';
 
-const Header: React.FC = ({ children }) => {
+interface HeaderProps {
+  style?: ViewStyle | false;
+}
+
+const Header: React.FC<HeaderProps> = ({ children, style }) => {
   return (
-    <Container>
+    <Container style={style}>
       <Content>{children}</Content>
     </Container>
   );
