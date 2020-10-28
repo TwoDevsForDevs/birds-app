@@ -11,6 +11,7 @@ import Header from '../../components/Header';
 import BirdGallery from '../../components/BirdGallery';
 
 import Placeholder from './Placeholder';
+
 import {
   Container,
   HeaderBirdPopularName,
