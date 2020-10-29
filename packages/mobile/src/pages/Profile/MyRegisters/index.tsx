@@ -86,7 +86,7 @@ const MyRegisters: React.FC = () => {
           </BirdImage>
         )}
       </Container>
-      {toggleModal && <BirdModal birdId={birdId} />}
+      {toggleModal && <BirdModal birdId={birdId} handleModal={handleModal} />}
     </>
   );
 };
