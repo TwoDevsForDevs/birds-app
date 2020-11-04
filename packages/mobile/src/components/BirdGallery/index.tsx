@@ -16,7 +16,7 @@ export interface BirdRegister {
 
 interface Props {
   birdRegisters: BirdRegister[];
-  onPress: () => void;
+  onPress: (id: string) => void;
 }
 
 const BirdGallery: React.FC<Props> = ({ birdRegisters, onPress }) => {
@@ -27,7 +27,10 @@ const BirdGallery: React.FC<Props> = ({ birdRegisters, onPress }) => {
       numColumns={3}
       renderItem={({ item: register }) => {
         return (
-          <RegisterButton activeOpacity={0.8} onPress={onPress}>
+          <RegisterButton
+            activeOpacity={0.8}
+            onPress={() => onPress(register.id)}
+          >
             <BirdImage source={{ uri: register.image_url }} />
           </RegisterButton>
         );

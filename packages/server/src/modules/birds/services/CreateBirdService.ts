@@ -3,8 +3,6 @@ import { getRepository } from 'typeorm';
 import StorageProvider from '../../../providers/StorageProvider';
 import Bird from '../entities/Bird';
 
-const storageProvider = new StorageProvider();
-
 interface Request {
   popular_name: string;
   scientific_name: string;
@@ -26,6 +24,7 @@ class CreateBirdService {
     wikiaves_link
   }: Request): Promise<Bird> {
     const birdRepository = getRepository(Bird);
+    const storageProvider = new StorageProvider();
 
     let filename;
 

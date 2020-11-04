@@ -83,12 +83,12 @@ const SignIn: React.FC = () => {
           return;
         }
 
+        setLoading(false);
+
         Alert.alert(
           'Erro na autenticação',
           'Ocorreu um erro ao fazer login, cheque as credenciais'
         );
-      } finally {
-        setLoading(false);
       }
     },
     [signIn]

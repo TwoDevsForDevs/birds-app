@@ -8,6 +8,7 @@ import { getBottomSpace } from 'react-native-iphone-x-helper';
 import Home from '../pages/Home';
 import AllBirds from '../pages/AllBirds';
 import Bird from '../pages/Bird';
+import Profile from '../pages/Profile';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -96,7 +97,7 @@ const AppRoutes: React.FC = () => {
       />
       <Tab.Screen
         name="Perfil"
-        component={Home}
+        component={Profile}
         options={{
           tabBarIcon: ({ focused }) => {
             return (

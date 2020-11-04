@@ -1,22 +1,23 @@
 import { Router } from 'express';
-import { classToClass } from 'class-transformer';
+import multer from 'multer';
 
-import CreateUserService from '../services/CreateUserService';
+import authMiddleware from '../middlewares/authMiddleware';
+import uploadConfig from '../../../config/upload';
+
+import UserController from '../controllers/UserController';
+import UserAvatarController from '../controllers/UserAvatarController';
 
 const usersRouter = Router();
+const upload = multer(uploadConfig);
+const userController = new UserController();
+const userAvatarController = new UserAvatarController();
 
-usersRouter.post('/', async (request, response) => {
-  const { name, email, password } = request.body;
-
-  const createUser = new CreateUserService();
-
-  const user = await createUser.execute({
-    name,
-    email,
-    password
-  });
-
-  return response.json(classToClass(user));
-});
+usersRouter.post('/', userController.create);
+usersRouter.patch(
+  '/avatar',
+  authMiddleware,
+  upload.single('avatar'),
+  userAvatarController.create
+);
 
 export default usersRouter;
