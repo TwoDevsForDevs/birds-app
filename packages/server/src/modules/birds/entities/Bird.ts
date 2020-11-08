@@ -44,7 +44,7 @@ class Bird {
 
   @Expose({ name: 'image_url' })
   getImageUrl(): string | null {
-    return this.image ? `http://localhost:3333/files/${this.image}` : null;
+    return this.image ? `${process.env.APP_API_URL}/files/${this.image}` : null;
   }
 }
 
