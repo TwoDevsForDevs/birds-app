@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 
 import api from '../../../services/api';
@@ -7,9 +7,9 @@ import { useAuth } from '../../../hooks';
 
 import Placeholder from './Placeholder';
 import BirdGallery from '../../../components/BirdGallery';
-import BirdModal from '../../../components/BirdModal';
 
-import { Container, BirdImage } from './styles';
+import { Container, NoRegisterContent, NoRegisterText } from './styles';
+import Button from '../../../components/Button';
 
 interface BirdRegister {
   id: string;
@@ -29,8 +29,6 @@ const MyRegisters: React.FC = () => {
   const [birdRegisters, setBirdRegisters] = useState<BirdRegister[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [toggleModal, setToggleModal] = useState(false);
-  const [birdId, setBirdId] = useState('');
 
   useEffect(() => {
     async function getBirds() {
@@ -50,18 +48,6 @@ const MyRegisters: React.FC = () => {
     getBirds();
   }, [user.id]);
 
-  const handleModal = useCallback(() => {
-    setToggleModal(!toggleModal);
-  }, [toggleModal]);
-
-  const handleBirdRegister = useCallback(
-    bird_id => {
-      setBirdId(bird_id);
-      handleModal();
-    },
-    [handleModal]
-  );
-
   if (loading) {
     return <Placeholder />;
   }
@@ -77,16 +63,18 @@ const MyRegisters: React.FC = () => {
   return (
     <>
       <Container>
-        {birdRegisters.length > 0 && (
-          <BirdImage>
-            <BirdGallery
-              birdRegisters={birdRegisters}
-              onPress={handleBirdRegister}
-            />
-          </BirdImage>
+        {birdRegisters.length > 0 ? (
+          <BirdGallery birdRegisters={birdRegisters} />
+        ) : (
+          <NoRegisterContent>
+            <NoRegisterText>
+              Você ainda não possui nenhum registro cadastrado no app.
+            </NoRegisterText>
+
+            <Button>Fazer cadastro de registro</Button>
+          </NoRegisterContent>
         )}
       </Container>
-      {toggleModal && <BirdModal birdId={birdId} />}
     </>
   );
 };
