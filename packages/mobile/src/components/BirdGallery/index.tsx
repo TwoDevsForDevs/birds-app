@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+
+import BirdModal from '../BirdModal';
 
 import { Container, RegisterButton, BirdImage } from './styles';
 
@@ -16,26 +18,52 @@ export interface BirdRegister {
 
 interface Props {
   birdRegisters: BirdRegister[];
-  onPress: (id: string) => void;
 }
 
-const BirdGallery: React.FC<Props> = ({ birdRegisters, onPress }) => {
+const BirdGallery: React.FC<Props> = ({ birdRegisters }) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [birdsRegisterInModal, setBirdsRegisterInModal] = useState(
+    {} as BirdRegister
+  );
+
+  const toggleModal = useCallback(() => {
+    setModalVisible(!isModalVisible);
+  }, [isModalVisible]);
+
+  const handleSetBirdsRegisterInModal = useCallback(
+    (register: BirdRegister) => {
+      setBirdsRegisterInModal(register);
+    },
+    []
+  );
+
   return (
-    <Container
-      data={birdRegisters}
-      keyExtractor={register => register.id}
-      numColumns={3}
-      renderItem={({ item: register }) => {
-        return (
-          <RegisterButton
-            activeOpacity={0.8}
-            onPress={() => onPress(register.id)}
-          >
-            <BirdImage source={{ uri: register.image_url }} />
-          </RegisterButton>
-        );
-      }}
-    />
+    <>
+      <Container
+        data={birdRegisters}
+        keyExtractor={register => register.id}
+        numColumns={3}
+        renderItem={({ item: register }) => {
+          return (
+            <RegisterButton
+              activeOpacity={0.8}
+              onPress={() => {
+                toggleModal();
+                handleSetBirdsRegisterInModal(register);
+              }}
+            >
+              <BirdImage source={{ uri: register.image_url }} />
+            </RegisterButton>
+          );
+        }}
+      />
+
+      <BirdModal
+        isVisible={isModalVisible}
+        register={birdsRegisterInModal}
+        toggleModal={toggleModal}
+      />
+    </>
   );
 };
 
