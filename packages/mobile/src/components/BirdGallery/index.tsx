@@ -58,11 +58,13 @@ const BirdGallery: React.FC<Props> = ({ birdRegisters }) => {
         }}
       />
 
-      <BirdModal
-        isVisible={isModalVisible}
-        register={birdsRegisterInModal}
-        toggleModal={toggleModal}
-      />
+      {isModalVisible && (
+        <BirdModal
+          isVisible={isModalVisible}
+          register={birdsRegisterInModal}
+          toggleModal={toggleModal}
+        />
+      )}
     </>
   );
 };

@@ -8,14 +8,12 @@ export const Container = styled.ScrollView.attrs({
   border-radius: ${({ theme }) => theme.radius.default};
 `;
 
-export const Content = styled.View`
-  padding: 32px;
-`;
+export const Content = styled.View``;
 
 export const CloseModalButton = styled.TouchableOpacity`
   width: 32px;
   height: 32px;
-  background: ${({ theme }) => theme.colors.grey};
+  background: ${({ theme }) => theme.colors.black};
   border-radius: 20px;
   position: absolute;
   top: 8px;
@@ -29,10 +27,14 @@ export const CloseModalButton = styled.TouchableOpacity`
 export const BirdImage = styled.Image`
   width: 100%;
   height: 304px;
-  border-radius: ${({ theme }) => theme.radius.default};
-  margin-bottom: 16px;
+  border-top-left-radius: ${({ theme }) => theme.radius.default};
+  border-top-right-radius: ${({ theme }) => theme.radius.default};
 
   align-self: center;
+`;
+
+export const BirdDetails = styled.View`
+  padding: 32px;
 `;
 
 export const StatsContainer = styled.View`
