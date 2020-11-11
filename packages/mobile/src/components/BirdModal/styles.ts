@@ -1,5 +1,19 @@
 import styled from 'styled-components/native';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface LikeButtonProps {
+  userHasLike: boolean;
+}
+
+export const LoadingContainer = styled.View`
+  height: 200px;
+  background: ${({ theme }) => theme.colors.white};
+  border-radius: ${({ theme }) => theme.radius.default};
+
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Container = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false
 })`
@@ -13,7 +27,7 @@ export const Content = styled.View``;
 export const CloseModalButton = styled.TouchableOpacity`
   width: 32px;
   height: 32px;
-  background: ${({ theme }) => theme.colors.black};
+  background: rgba(39, 39, 39, 0.7);
   border-radius: 20px;
   position: absolute;
   top: 8px;
@@ -62,11 +76,23 @@ export const StatsDivider = styled.Text`
   color: ${({ theme }) => theme.colors.grey};
 `;
 
-export const LikeButton = styled.TouchableOpacity`
+export const LikeButton = styled.TouchableOpacity<LikeButtonProps>`
   margin-top: 16px;
+  padding: 8px;
+  background: ${({ theme, userHasLike }) =>
+    userHasLike ? 'rgba(255, 0 ,0, 0.1)' : theme.colors.lightGrey};
+  border-radius: ${({ theme }) => theme.radius.small};
+
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-start;
 `;
 
-export const LikeButtonText = styled.Text``;
+export const LikeButtonText = styled.Text`
+  font-family: 'Roboto_700Bold';
+  margin-left: 8px;
+  color: ${({ theme }) => theme.colors.grey};
+`;
 
 export const Divider = styled.View`
   margin: 16px 0;
@@ -90,6 +116,6 @@ export const Label = styled.Text`
 
 export const InfoText = styled.Text`
   font-family: 'Roboto_400Regular';
-  font-size: 18px;
+  font-size: 16px;
   color: ${({ theme }) => theme.colors.grey};
 `;

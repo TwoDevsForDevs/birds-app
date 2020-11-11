@@ -1,10 +1,14 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { ActivityIndicator, Alert } from 'react-native';
 import Modal from 'react-native-modal';
-import { Feather as Icon } from '@expo/vector-icons';
+import { Feather as Icon, Ionicons } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
-
 import { format, parseISO } from 'date-fns';
+
+import api from '../../services/api';
+
 import {
+  LoadingContainer,
   Container,
   Content,
   CloseModalButton,
@@ -23,115 +27,178 @@ import {
   Label,
   InfoText
 } from './styles';
-import api from '../../services/api';
 
 interface BirdRegister {
-  id: string;
-  owner_id: string;
-  bird_id: string;
-  image_url: string;
-  location: string;
-  register_date: string;
-  obs: string;
-  likes: number;
-  views: number;
+  register: {
+    id: string;
+    owner_id: string;
+    owner: {
+      name: string;
+    };
+    bird_id: string;
+    image_url: string;
+    location: string;
+    register_date: string;
+    obs: string;
+    views: number;
+  };
+  number_of_likes: number;
+  user_has_like: boolean;
 }
 
 interface BirdModalProps {
-  register: BirdRegister;
   isVisible: boolean;
+  register_id: string;
   toggleModal: () => void;
 }
 
 const BirdModal: React.FC<BirdModalProps> = ({
   isVisible,
-  register,
+  register_id,
   toggleModal
 }) => {
   const { colors } = useTheme();
 
+  const [registerData, setRegisterData] = useState({} as BirdRegister);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    async function addViewOnBirdRegister() {
+    async function getRegisterAndAddViewOnIt() {
+      const response = await api.get(`birds-registers/${register_id}`);
+
+      setRegisterData(response.data);
+
       await api.post('/birds-registers/views', {
+        register_id
+      });
+
+      setLoading(false);
+    }
+
+    getRegisterAndAddViewOnIt();
+  }, [register_id]);
+
+  const { register } = registerData;
+
+  const handleToggleLike = useCallback(async () => {
+    if (registerData.user_has_like) {
+      try {
+        await api.delete(`birds-registers/like/${register.id}`);
+
+        setRegisterData({
+          ...registerData,
+          user_has_like: false,
+          number_of_likes: registerData.number_of_likes - 1
+        });
+      } catch (err) {
+        Alert.alert(
+          'Error',
+          'Ocorreu um erro ao tentar descurtir essa foto, tente novamente.'
+        );
+      }
+
+      return;
+    }
+
+    try {
+      await api.post('birds-registers/like', {
         register_id: register.id
       });
 
-      // eslint-disable-next-line no-param-reassign
-      register.views += 1;
+      setRegisterData({
+        ...registerData,
+        user_has_like: true,
+        number_of_likes: registerData.number_of_likes + 1
+      });
+    } catch (err) {
+      Alert.alert(
+        'Error',
+        'Ocorreu um erro ao tentar curtir essa foto, tente novamente.'
+      );
     }
-
-    addViewOnBirdRegister();
-  }, [register]);
-
-  const registerFormatted = useMemo(() => {
-    return {
-      ...register,
-      registerDateFormatted: format(
-        parseISO(register.register_date),
-        "dd'/'MM'/'yyyy"
-      )
-    };
-  }, [register]);
+  }, [registerData, register]);
 
   return (
     <Modal isVisible={isVisible} propagateSwipe onBackdropPress={toggleModal}>
-      <Container>
-        <Content>
-          <CloseModalButton onPress={toggleModal}>
-            <Icon name="x" size={16} color={colors.white} />
-          </CloseModalButton>
+      {loading ? (
+        <LoadingContainer>
+          <ActivityIndicator size="large" color={colors.grey} />
+        </LoadingContainer>
+      ) : (
+        <Container>
+          <Content>
+            <CloseModalButton onPress={toggleModal}>
+              <Icon name="x" size={16} color={colors.white} />
+            </CloseModalButton>
 
-          <BirdImage source={{ uri: registerFormatted.image_url }} />
+            <BirdImage source={{ uri: register.image_url }} />
 
-          <BirdDetails>
-            <StatsContainer>
-              <StatsContent>
-                <StatsNumber>{registerFormatted.likes}</StatsNumber>
-                <StatsText>curtidas</StatsText>
-              </StatsContent>
+            <BirdDetails>
+              <StatsContainer>
+                <StatsContent>
+                  <StatsNumber>{registerData.number_of_likes}</StatsNumber>
+                  <StatsText>
+                    {registerData.number_of_likes === 1
+                      ? 'curtida'
+                      : 'curtidas'}
+                  </StatsText>
+                </StatsContent>
 
-              <StatsDivider>-</StatsDivider>
+                <StatsDivider>-</StatsDivider>
 
-              <StatsContent>
-                <StatsNumber>{registerFormatted.views}</StatsNumber>
-                <StatsText>
-                  {registerFormatted.views === 1
-                    ? 'visualização'
-                    : 'visualizações'}
-                </StatsText>
-              </StatsContent>
-            </StatsContainer>
+                <StatsContent>
+                  <StatsNumber>{register.views}</StatsNumber>
+                  <StatsText>
+                    {register.views === 1 ? 'visualização' : 'visualizações'}
+                  </StatsText>
+                </StatsContent>
+              </StatsContainer>
 
-            <LikeButton>
-              <LikeButtonText>Curtir</LikeButtonText>
-            </LikeButton>
+              <LikeButton
+                onPress={handleToggleLike}
+                userHasLike={registerData.user_has_like}
+              >
+                <Ionicons
+                  name="ios-heart"
+                  size={20}
+                  color={
+                    registerData.user_has_like ? colors.error : colors.grey
+                  }
+                />
+                <LikeButtonText>
+                  {registerData.user_has_like ? 'Descurtir' : 'Curtir'}
+                </LikeButtonText>
+              </LikeButton>
 
-            <Divider />
+              <Divider />
 
-            <BirdInfoContainer>
-              <BirdInfo>
-                <Label>Autor:</Label>
-                <InfoText>RELACIONAMENTO</InfoText>
-              </BirdInfo>
+              <BirdInfoContainer>
+                <BirdInfo>
+                  <Label>Autor:</Label>
+                  <InfoText>{register.owner.name}</InfoText>
+                </BirdInfo>
 
-              <BirdInfo>
-                <Label>Localidate:</Label>
-                <InfoText>{registerFormatted.location}</InfoText>
-              </BirdInfo>
+                <BirdInfo>
+                  <Label>Localidate:</Label>
+                  <InfoText>{register.location}</InfoText>
+                </BirdInfo>
 
-              <BirdInfo>
-                <Label>Data de registro:</Label>
-                <InfoText>{registerFormatted.registerDateFormatted}</InfoText>
-              </BirdInfo>
+                <BirdInfo>
+                  <Label>Data de registro:</Label>
+                  <InfoText>
+                    {format(parseISO(register.register_date), "dd'/'MM'/'yyyy")}
+                  </InfoText>
+                </BirdInfo>
 
-              <BirdInfo>
-                <Label>Observações:</Label>
-                <InfoText>{registerFormatted.obs}</InfoText>
-              </BirdInfo>
-            </BirdInfoContainer>
-          </BirdDetails>
-        </Content>
-      </Container>
+                <BirdInfo>
+                  <Label>Observações:</Label>
+                  <InfoText>{register.obs}</InfoText>
+                </BirdInfo>
+              </BirdInfoContainer>
+            </BirdDetails>
+          </Content>
+        </Container>
+      )}
     </Modal>
   );
 };
