@@ -18,7 +18,8 @@ class ListBirdRegisterService {
         where: {
           status: true,
           bird_id
-        }
+        },
+        relations: ['owner']
       });
 
       return registers;
@@ -29,7 +30,8 @@ class ListBirdRegisterService {
         where: {
           status: true,
           owner_id: user_id
-        }
+        },
+        relations: ['owner']
       });
 
       return registers;
@@ -38,7 +40,8 @@ class ListBirdRegisterService {
     registers = birdRegisterRepository.find({
       where: {
         status: true
-      }
+      },
+      relations: ['owner']
     });
 
     return registers;

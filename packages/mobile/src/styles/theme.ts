@@ -6,7 +6,6 @@ export default {
     lightGrey: '#EAEAEA',
     white: '#FFFFFF',
     background: '#FBFBFB',
-    backgroundModalOpen: 'rgba(0, 0, 0, 0.3)',
     inputBackground: '#EEEEEE',
     error: '#E74C3C'
   },

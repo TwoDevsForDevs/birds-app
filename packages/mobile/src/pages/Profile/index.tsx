@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as ImagePicker from 'expo-image-picker';
+import { useTheme } from 'styled-components';
 
 import api from '../../services/api';
 
@@ -24,6 +25,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const Profile: React.FC = () => {
   const { user, updateUser } = useAuth();
+  const { colors } = useTheme();
 
   const handleUpdateAvatar = useCallback(async () => {
     const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -69,8 +71,24 @@ const Profile: React.FC = () => {
           </UserAvatarButton>
         </Header>
       </Container>
-      <Tab.Navigator>
-        <Tab.Screen name="Minhas fotos" component={MyRegisters} />
+
+      <Tab.Navigator
+        tabBarOptions={{
+          labelStyle: {
+            fontFamily: 'Roboto_700Bold',
+            fontSize: 16,
+            marginBottom: 14,
+            textTransform: 'none'
+          },
+          activeTintColor: colors.black,
+          inactiveTintColor: colors.grey,
+          indicatorStyle: {
+            backgroundColor: colors.black,
+            height: 3
+          }
+        }}
+      >
+        <Tab.Screen name="Meus registros" component={MyRegisters} />
         <Tab.Screen name="Meus dados" component={MyData} />
       </Tab.Navigator>
     </>

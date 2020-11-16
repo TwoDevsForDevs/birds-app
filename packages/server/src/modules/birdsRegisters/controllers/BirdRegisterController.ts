@@ -20,12 +20,14 @@ export default class BirdRegisterController {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
     const { id: register_id } = request.params;
 
     const showBirdRegisterService = new ShowBirdRegisterService();
 
     const register = await showBirdRegisterService.execute({
-      register_id
+      register_id,
+      user_id
     });
 
     return response.json(classToClass(register));

@@ -44,9 +44,6 @@ class BirdRegister {
   obs: string;
 
   @Column('integer')
-  likes: number;
-
-  @Column('integer')
   views: number;
 
   @Column('boolean')
