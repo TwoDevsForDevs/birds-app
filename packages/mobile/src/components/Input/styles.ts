@@ -5,6 +5,7 @@ import { Feather as FeatherIcon } from '@expo/vector-icons';
 interface Props {
   isFocused: boolean;
   isErrored: boolean;
+  height?: string;
 }
 
 export const Container = styled.View`
@@ -12,10 +13,14 @@ export const Container = styled.View`
   margin-bottom: 10px;
 `;
 
-export const Label = styled.Text``;
+export const Label = styled.Text`
+  font-family: 'Roboto_700Bold';
+  color: ${({ theme }) => theme.colors.grey};
+  margin-bottom: 8px;
+`;
 
 export const Content = styled.View<Props>`
-  height: 48px;
+  height: ${props => props.height};
   background: ${({ theme }) => theme.colors.inputBackground};
   border: 2px solid ${({ theme }) => theme.colors.inputBackground};
   border-radius: ${({ theme }) => theme.radius.small};

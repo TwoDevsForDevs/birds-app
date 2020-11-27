@@ -25,6 +25,7 @@ interface InputProps extends TextInputProps {
   name: string;
   icon?: string;
   label?: string;
+  height?: string;
 }
 
 interface InputValueReference {
@@ -36,7 +37,7 @@ interface InputRef {
 }
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
-  { name, icon, label, ...rest },
+  { name, icon, label, height = '48px', ...rest },
   ref
 ) => {
   const { colors } = useTheme();
@@ -73,7 +74,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     <Container>
       {label && <Label>{label}</Label>}
 
-      <Content isFocused={!!isFocused} isErrored={!!error}>
+      <Content isFocused={!!isFocused} isErrored={!!error} height={height}>
         {icon && (
           <Icon
             name={icon}
