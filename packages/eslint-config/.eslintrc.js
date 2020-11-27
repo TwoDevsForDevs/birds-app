@@ -33,6 +33,7 @@ module.exports = {
     'react/jsx-filename-extension': [1, { 'extensions': ['.tsx'] }],
     'class-methods-use-this': 'off',
     'camelcase': 'off',
+    'no-use-before-define': 'off',
     '@typescript-eslint/no-unused-vars': ['error', {
       'argsIgnorePattern': '_'
     }],
