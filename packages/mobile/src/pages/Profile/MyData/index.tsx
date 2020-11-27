@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
+import { useTheme } from 'styled-components';
 import * as Yup from 'yup';
 
 import api from '../../../services/api';
@@ -30,6 +31,7 @@ interface ProfileFormData {
 }
 
 const MyData: React.FC = () => {
+  const { colors } = useTheme();
   const { user, updateUser } = useAuth();
 
   const formRef = useRef<FormHandles>(null);
@@ -182,7 +184,7 @@ const MyData: React.FC = () => {
             >
               Atualizar dados
             </Button>
-            <Button color="#fff" background="#E74C3C">
+            <Button color={colors.white} background={colors.error}>
               Deletar minha conta
             </Button>
           </ButtonsContainer>
