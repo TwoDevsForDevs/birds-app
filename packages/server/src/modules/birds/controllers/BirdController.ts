@@ -7,9 +7,13 @@ import ShowBirdService from '../services/ShowBirdService';
 
 export default class BirdController {
   public async index(request: Request, response: Response): Promise<Response> {
+    const { search = '' } = request.query as any;
+
     const listBirdsService = new ListBirdsService();
 
-    const birds = await listBirdsService.execute();
+    const birds = await listBirdsService.execute({
+      search
+    });
 
     return response.json(classToClass(birds));
   }
