@@ -61,8 +61,6 @@ const BirdModal: React.FC<BirdModalProps> = ({ birdId, handleModal }) => {
 
         const response = await api.get(`birds-registers/${birdId}`);
 
-        console.log(response.data);
-
         const formattedRegister = response.data;
 
         formattedRegister.register_date = format(
