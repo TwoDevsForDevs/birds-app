@@ -44,9 +44,6 @@ class BirdRegister {
   obs: string;
 
   @Column('integer')
-  likes: number;
-
-  @Column('integer')
   views: number;
 
   @Column('boolean')
@@ -63,7 +60,7 @@ class BirdRegister {
 
   @Expose({ name: 'image_url' })
   getImageUrl(): string | null {
-    return this.image ? `http://192.168.0.112:3333/files/${this.image}` : null;
+    return this.image ? `${process.env.APP_API_URL}/files/${this.image}` : null;
   }
 }
 

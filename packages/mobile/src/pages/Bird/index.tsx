@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Linking, Alert, Text, View } from 'react-native';
+import { Linking, Alert, Text } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
-import { useTheme } from 'styled-components';
 import api from '../../services/api';
 
 import Title from '../../components/Title';
@@ -14,7 +13,6 @@ import Placeholder from './Placeholder';
 
 import {
   Container,
-  HeaderBirdPopularName,
   Content,
   BirdImage,
   BirdInfoContainer,
@@ -53,7 +51,6 @@ interface BirdRegister {
 
 const Bird: React.FC = () => {
   const route = useRoute();
-  const { colors } = useTheme();
 
   const routeParams = route.params as RouteParams;
 
@@ -61,7 +58,6 @@ const Bird: React.FC = () => {
   const [birdRegisters, setBirdRegisters] = useState<BirdRegister[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [passedHeaderHeight, setPassedHeaderHeight] = useState(false);
 
   useEffect(() => {
     async function getBirds() {
@@ -94,14 +90,6 @@ const Bird: React.FC = () => {
     }
   }, []);
 
-  const handleScroll = useCallback(event => {
-    if (event.nativeEvent.contentOffset.y >= 40) {
-      setPassedHeaderHeight(true);
-    } else {
-      setPassedHeaderHeight(false);
-    }
-  }, []);
-
   if (loading) {
     return <Placeholder />;
   }
@@ -116,27 +104,11 @@ const Bird: React.FC = () => {
 
   return (
     <Container>
-      <Header
-        style={
-          passedHeaderHeight && {
-            borderBottomWidth: 1,
-            borderBottomColor: colors.lightGrey,
-            borderStyle: 'solid'
-          }
-        }
-      >
+      <Header>
         <GoBackButton />
-
-        {passedHeaderHeight && (
-          <>
-            <HeaderBirdPopularName>{bird.popular_name}</HeaderBirdPopularName>
-
-            <View style={{ width: 40, height: 40 }} />
-          </>
-        )}
       </Header>
 
-      <Content onScroll={handleScroll} scrollEventThrottle={16}>
+      <Content>
         <Title>{bird.popular_name}</Title>
 
         <BirdImage source={{ uri: bird.image_url }} />
@@ -170,10 +142,7 @@ const Bird: React.FC = () => {
             <BirdInfo>
               <Label>Galeria:</Label>
 
-              <BirdGallery
-                birdRegisters={birdRegisters}
-                onPress={() => console.log('xd')}
-              />
+              <BirdGallery birdRegisters={birdRegisters} />
             </BirdInfo>
           )}
         </BirdInfoContainer>

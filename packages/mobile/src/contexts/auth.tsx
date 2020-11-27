@@ -92,6 +92,17 @@ const AuthProvider: React.FC = ({ children }) => {
     [setData, data.token]
   );
 
+  api.interceptors.response.use(
+    response => response,
+    async err => {
+      if (err.response.status === 401 || err.response.status === 403) {
+        signOut();
+      }
+
+      throw err;
+    }
+  );
+
   return (
     <AuthContext.Provider
       value={{ user: data.user, loading, signIn, signOut, updateUser }}
