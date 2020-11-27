@@ -7,7 +7,7 @@ const storageProvider = new StorageProvider();
 
 interface Request {
   owner_id: string;
-  bird_id: string;
+  bird_id: string | null;
   image: string;
   location: string;
   register_date: Date;
@@ -29,7 +29,7 @@ class CreateBirdRegisterService {
 
     const register = birdRegisterRepository.create({
       owner_id,
-      bird_id,
+      bird_id: bird_id === 'null' ? null : bird_id,
       image: filename,
       location,
       register_date,
