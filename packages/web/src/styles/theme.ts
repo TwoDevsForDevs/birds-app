@@ -8,6 +8,7 @@ export default {
     white: '#FFFFFF',
     background: '#F5F5F5',
     inputBorder: '#DDDDDD',
+    inputPlaceholder: '#AAAAAA',
     error: '#DE3B3B'
   },
   radius: {

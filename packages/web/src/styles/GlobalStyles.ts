@@ -23,11 +23,13 @@ export default createGlobalStyle`
   }
 
   body, input, button {
-    font: 400 16px Roboto, sans-serif;
+    font: 400 14px Roboto, sans-serif;
   }
 
   button {
     cursor: pointer;
+    background: transparent;
+    border: none;
   }
 
   a {
