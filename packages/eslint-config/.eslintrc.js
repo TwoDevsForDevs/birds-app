@@ -34,6 +34,7 @@ module.exports = {
     'class-methods-use-this': 'off',
     'camelcase': 'off',
     'no-use-before-define': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
     '@typescript-eslint/no-unused-vars': ['error', {
       'argsIgnorePattern': '_'
     }],
