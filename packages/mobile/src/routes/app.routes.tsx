@@ -9,6 +9,10 @@ import Home from '../pages/Home';
 import AllBirds from '../pages/AllBirds';
 import Bird from '../pages/Bird';
 import Profile from '../pages/Profile';
+import RegisterBird from '../pages/RegisterBird';
+import RegisterBirdPickImage from '../pages/RegisterBirdPickImage';
+import RegisterBirdInfo from '../pages/RegisterBirdInfo';
+import RegisterBirdComplete from '../pages/RegisterBirdComplete';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,6 +30,30 @@ const HomeRoutes: React.FC = () => {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="AllBirds" component={AllBirds} />
       <Stack.Screen name="Bird" component={Bird} />
+    </Stack.Navigator>
+  );
+};
+
+const RegisterRoutes: React.FC = () => {
+  const { colors } = useTheme();
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: colors.background }
+      }}
+    >
+      <Stack.Screen name="RegisterBird" component={RegisterBird} />
+      <Stack.Screen
+        name="RegisterBirdPickImage"
+        component={RegisterBirdPickImage}
+      />
+      <Stack.Screen name="RegisterBirdInfo" component={RegisterBirdInfo} />
+      <Stack.Screen
+        name="RegisterBirdComplete"
+        component={RegisterBirdComplete}
+      />
     </Stack.Navigator>
   );
 };
@@ -82,7 +110,7 @@ const AppRoutes: React.FC = () => {
       />
       <Tab.Screen
         name="Registrar"
-        component={Home}
+        component={RegisterRoutes}
         options={{
           tabBarIcon: ({ focused }) => {
             return (

@@ -1,26 +1,16 @@
 import styled, { css } from 'styled-components/native';
 import { Feather as FeatherIcon } from '@expo/vector-icons';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Props {
   isFocused: boolean;
-  isErrored: boolean;
-  height?: string;
 }
 
 export const Container = styled.View`
   width: 100%;
-  margin-bottom: 10px;
 `;
 
-export const Label = styled.Text`
-  font-family: 'Roboto_700Bold';
-  color: ${({ theme }) => theme.colors.grey};
-  margin-bottom: 8px;
-`;
-
-export const Content = styled.View<Props>`
-  height: ${props => props.height};
+export const InputContainer = styled.View<Props>`
+  height: 48px;
   background: ${({ theme }) => theme.colors.inputBackground};
   border: 2px solid ${({ theme }) => theme.colors.inputBackground};
   border-radius: ${({ theme }) => theme.radius.small};
@@ -30,12 +20,6 @@ export const Content = styled.View<Props>`
     props.isFocused &&
     css`
       border-color: ${({ theme }) => theme.colors.primary};
-    `}
-
-  ${props =>
-    props.isErrored &&
-    css`
-      border-color: ${({ theme }) => theme.colors.error};
     `}
 `;
 
@@ -58,24 +42,29 @@ export const Icon = styled(FeatherIcon)<Props>`
     css`
       color: ${({ theme }) => theme.colors.primary};
     `}
-
-  ${props =>
-    props.isErrored &&
-    css`
-      color: ${({ theme }) => theme.colors.error};
-    `}
 `;
 
-export const Error = styled.View`
-  flex-direction: row;
-  align-items: center;
-
-  margin-top: 10px;
+export const BirdsOptionsContainer = styled.ScrollView`
+  margin-top: 8px;
+  border-radius: ${({ theme }) => theme.radius.default};
+  background: ${({ theme }) => theme.colors.white};
+  padding: 16px;
+  max-height: 250px;
 `;
 
-export const ErrorText = styled.Text`
+export const BirdOption = styled.TouchableOpacity`
+  margin-bottom: 8px;
+`;
+
+export const PopularNameText = styled.Text`
+  color: ${({ theme }) => theme.colors.black};
   font-family: 'Roboto_400Regular';
+  font-size: 16px;
+`;
+
+export const ScientificNameText = styled.Text`
+  color: ${({ theme }) => theme.colors.grey};
+  font-family: 'Roboto_400Regular';
+  font-style: italic;
   font-size: 12px;
-  margin-left: 8px;
-  color: ${({ theme }) => theme.colors.error};
 `;

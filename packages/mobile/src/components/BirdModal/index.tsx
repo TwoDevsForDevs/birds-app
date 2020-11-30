@@ -1,3 +1,34 @@
+import React, { useEffect, useState } from 'react';
+import Modal from 'react-native-modal';
+import { Feather as Icon } from '@expo/vector-icons';
+import { useTheme } from 'styled-components';
+import { parseISO, format } from 'date-fns';
+
+import { Text } from 'react-native';
+
+import api from '../../services/api';
+
+import Placeholder from './Placeholder';
+
+import {
+  Container,
+  Content,
+  CloseButton,
+  BirdImage,
+  PopularityContainer,
+  LikesContainer,
+  NumberOfLikes,
+  Likes,
+  ViewsContainer,
+  NumberOfViews,
+  Views,
+  LikeButton,
+  LikeText,
+  RegisterInfo,
+  InfoContainer,
+  InfoTitle,
+  Info
+=======
 import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Alert } from 'react-native';
 import Modal from 'react-native-modal';
@@ -47,6 +78,15 @@ interface BirdRegister {
 }
 
 interface BirdModalProps {
+  birdId: string;
+  handleModal: () => void;
+}
+
+const BirdModal: React.FC<BirdModalProps> = ({ birdId, handleModal }) => {
+  const { colors } = useTheme();
+
+  const [register, setRegister] = useState<BirdRegister>({} as BirdRegister);
+=======
   isVisible: boolean;
   register_id: string;
   toggleModal: () => void;
@@ -67,6 +107,21 @@ const BirdModal: React.FC<BirdModalProps> = ({
       const response = await api.get(`birds-registers/${register_id}`);
 
       setRegisterData(response.data);
+
+
+        const formattedRegister = response.data;
+
+        formattedRegister.register_date = format(
+          parseISO(formattedRegister.register_date),
+          'dd/MM/yyyy'
+        );
+
+        setRegister(formattedRegister);
+      } catch (err) {
+        console.log(err);
+        setError(true);
+        setLoading(false);
+      }
 
       await api.post('/birds-registers/views', {
         register_id
@@ -119,6 +174,57 @@ const BirdModal: React.FC<BirdModalProps> = ({
   }, [registerData, register]);
 
   return (
+    <Container>
+      {register && (
+        <Modal
+          isVisible
+          onBackdropPress={handleModal}
+          onBackButtonPress={handleModal}
+          style={{ padding: 24 }}
+        >
+          <Content>
+            <CloseButton onPress={handleModal}>
+              <Icon name="chevron-left" size={20} color={colors.black} />
+            </CloseButton>
+            <BirdImage source={{ uri: register.image_url }} />
+            <PopularityContainer>
+              <LikesContainer>
+                <NumberOfLikes>{register.likes}</NumberOfLikes>
+                <Likes>curtidas</Likes>
+              </LikesContainer>
+              <ViewsContainer>
+                <NumberOfViews>{register.views}</NumberOfViews>
+                <Views>visualizações</Views>
+              </ViewsContainer>
+            </PopularityContainer>
+            <LikeButton>
+              <Icon name="heart" size={18} color={colors.grey} />
+              <LikeText>Curtir</LikeText>
+            </LikeButton>
+            <RegisterInfo>
+              <InfoContainer>
+                <InfoTitle>Autor:</InfoTitle>
+                <Info>Autor:</Info>
+              </InfoContainer>
+              <InfoContainer>
+                <InfoTitle>Autor:</InfoTitle>
+                <Info>Autor:</Info>
+              </InfoContainer>
+              <InfoContainer>
+                <InfoTitle>Localidade:</InfoTitle>
+                <Info>Autor:</Info>
+              </InfoContainer>
+              <InfoContainer>
+                <InfoTitle>Data de registro:</InfoTitle>
+                <Info>{register.register_date}</Info>
+              </InfoContainer>
+              <InfoContainer>
+                <InfoTitle>Observação:</InfoTitle>
+                <Info>{register.obs}</Info>
+              </InfoContainer>
+            </RegisterInfo>
+          </Content>
+        </Modal>
     <Modal isVisible={isVisible} propagateSwipe onBackdropPress={toggleModal}>
       {loading ? (
         <LoadingContainer>

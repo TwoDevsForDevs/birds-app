@@ -17,15 +17,15 @@ class BirdRegister {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('varchar')
+  @Column('uuid')
   owner_id: string;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'owner_id' })
   owner: User;
 
-  @Column('varchar')
-  bird_id: string;
+  @Column({ type: 'uuid', nullable: true })
+  bird_id: string | null;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'bird_id' })
@@ -45,6 +45,9 @@ class BirdRegister {
 
   @Column('integer')
   views: number;
+
+  @Column('boolean')
+  autorizated: boolean;
 
   @Column('boolean')
   status: boolean;

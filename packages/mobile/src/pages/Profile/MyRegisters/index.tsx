@@ -75,6 +75,7 @@ const MyRegisters: React.FC = () => {
           </NoRegisterContent>
         )}
       </Container>
+      {toggleModal && <BirdModal birdId={birdId} handleModal={handleModal} />}
     </>
   );
 };

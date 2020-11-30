@@ -20,7 +20,8 @@ export default class CreateBirdsRegisters1600126232468
           },
           {
             name: 'bird_id',
-            type: 'uuid'
+            type: 'uuid',
+            isNullable: true
           },
           {
             name: 'image',
@@ -48,6 +49,11 @@ export default class CreateBirdsRegisters1600126232468
             name: 'views',
             type: 'integer',
             default: 0
+          },
+          {
+            name: 'autorizated',
+            type: 'boolean',
+            default: false
           },
           {
             name: 'status',

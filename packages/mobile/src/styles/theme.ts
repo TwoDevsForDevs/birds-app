@@ -7,7 +7,8 @@ export default {
     white: '#FFFFFF',
     background: '#FBFBFB',
     inputBackground: '#EEEEEE',
-    error: '#E74C3C'
+    error: '#E74C3C',
+    success: '#04D361'
   },
   radius: {
     default: '8px',
