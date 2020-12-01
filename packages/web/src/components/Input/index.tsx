@@ -5,8 +5,6 @@ import React, {
   useCallback,
   InputHTMLAttributes
 } from 'react';
-import { useTheme } from 'styled-components';
-import { FiAlertCircle } from 'react-icons/fi';
 import { useField } from '@unform/core';
 
 import { Container, Error } from './styles';
@@ -18,8 +16,6 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input: React.FC<InputProps> = ({ name, label, placeholder, ...rest }) => {
-  const { colors } = useTheme();
-
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [isFocused, setIsFocused] = useState(false);
@@ -55,12 +51,7 @@ const Input: React.FC<InputProps> = ({ name, label, placeholder, ...rest }) => {
         {...rest}
       />
 
-      {error && (
-        <Error>
-          <FiAlertCircle size={16} color={colors.error} />
-          {error}
-        </Error>
-      )}
+      {error && <Error>{error}</Error>}
     </Container>
   );
 };

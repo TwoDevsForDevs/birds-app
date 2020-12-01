@@ -29,7 +29,8 @@ export const Container = styled.div<ContainerProps>`
     ${props =>
       props.isErrored &&
       css`
-        border-color: ${({ theme }) => theme.colors.primary};
+        border-color: ${({ theme }) => theme.colors.error};
+        box-shadow: 0 0 0 1px ${({ theme }) => theme.colors.error};
       `}
 
     ${props =>
@@ -41,6 +42,19 @@ export const Container = styled.div<ContainerProps>`
 
     &::placeholder {
       color: ${({ theme }) => theme.colors.inputPlaceholder};
+    }
+  }
+
+  span {
+    color: ${({ theme }) => theme.colors.error};
+    font-weight: bold;
+    margin-top: 10px;
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 8px;
     }
   }
 `;
