@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Form as UnForm } from '@unform/web';
-import { darken } from 'polished';
 
 import { Container as Input } from '../../components/Input/styles';
 
@@ -27,25 +26,5 @@ export const Form = styled(UnForm)`
 
   ${Input} + ${Input} {
     margin-top: 16px;
-  }
-`;
-
-export const Button = styled.button`
-  height: 45px;
-  width: 100%;
-  background: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
-  border-radius: ${({ theme }) => theme.radius.small};
-  margin-top: 16px;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background 0.2s;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    background: ${({ theme }) => darken(0.03, theme.colors.primary)};
   }
 `;
