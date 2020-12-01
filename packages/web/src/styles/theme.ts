@@ -9,7 +9,7 @@ export default {
     background: '#F5F5F5',
     inputBorder: '#DDDDDD',
     inputPlaceholder: '#AAAAAA',
-    error: '#DE3B3B'
+    error: '#E74C3C'
   },
   radius: {
     default: '8px',
