@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 export default createGlobalStyle`
   * {
     margin: 0;
@@ -38,5 +40,11 @@ export default createGlobalStyle`
 
   ul {
     list-style: none;
+  }
+
+  .react-toastify {
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 20px;
   }
 `;
