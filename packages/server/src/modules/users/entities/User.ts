@@ -28,6 +28,9 @@ class User {
   @Column('boolean')
   status: boolean;
 
+  @Column('boolean')
+  admin: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 
