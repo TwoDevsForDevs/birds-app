@@ -1,10 +1,12 @@
 import React, { useCallback, useRef, useState } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
+import { FormHandles } from '@unform/core';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useAuth } from '../../hooks';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 import { Container, Form } from './styles';
 
@@ -16,7 +18,7 @@ interface SignInFormData {
 const Home: React.FC = () => {
   const { signIn } = useAuth();
 
-  const formRef = useRef(null);
+  const formRef = useRef<FormHandles>(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -49,14 +51,10 @@ const Home: React.FC = () => {
       } catch (err) {
         setLoading(false);
 
-        const validationErrors = {};
-
         if (err instanceof Yup.ValidationError) {
-          err.inner.forEach(error => {
-            validationErrors[error.path] = error.message;
-          });
+          const errors = getValidationErrors(err);
 
-          formRef.current.setErrors(validationErrors);
+          formRef.current?.setErrors(errors);
 
           return;
         }
