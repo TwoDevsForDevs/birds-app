@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { ToastContainer } from 'react-toastify';
 
@@ -9,14 +10,16 @@ import AppProvider from './contexts';
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <ToastContainer autoClose={4000} toastClassName="react-toastify" />
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <ToastContainer autoClose={4000} toastClassName="react-toastify" />
 
-      <AppProvider>
-        <Routes />
-      </AppProvider>
-    </ThemeProvider>
+        <AppProvider>
+          <Routes />
+        </AppProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 };
 
