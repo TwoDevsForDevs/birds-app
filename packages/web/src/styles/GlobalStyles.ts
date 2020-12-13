@@ -14,13 +14,13 @@ export default createGlobalStyle`
     outline: 0;
   }
 
-  html, body, #__next {
+  html, body, #root {
     height: 100%;
   }
 
   body {
     background-color: ${({ theme }) => theme.colors.background};
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.black};
     -webkit-font-smoothing: antialiased;
   }
 

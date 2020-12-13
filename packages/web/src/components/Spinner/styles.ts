@@ -19,9 +19,11 @@ export const Bouce1 = styled.i`
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.9);
   opacity: 0.6;
+
   position: absolute;
   top: 0;
   left: 0;
+
   ${css`
     animation: ${skbounce} 2s infinite ease-in-out;
   `}
@@ -33,9 +35,11 @@ export const Bouce2 = styled.i`
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.9);
   opacity: 0.6;
+
   position: absolute;
   top: 0;
   left: 0;
+
   ${css`
     animation: ${skbounce} 2s infinite ease-in-out;
     animation-delay: -1s;

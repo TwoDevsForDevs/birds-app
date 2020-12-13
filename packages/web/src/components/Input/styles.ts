@@ -44,7 +44,6 @@ export const Container = styled.div<ContainerProps>`
       color: ${({ theme }) => theme.colors.inputPlaceholder};
     }
   }
-
   span {
     color: ${({ theme }) => theme.colors.error};
     font-weight: bold;

@@ -99,3 +99,4 @@ const AuthProvider: React.FC = ({ children }) => {
 };
 
 export { AuthProvider, AuthContext };
+export type { AuthContextData };
