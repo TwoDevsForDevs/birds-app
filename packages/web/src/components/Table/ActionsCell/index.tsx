@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { useTheme } from 'styled-components';
 
-import useDeleteModal from '../../../hooks/useDeleteModal';
+import { useDeleteModal } from '../../../hooks';
 
 import { Container, ActionButtons } from './styles';
 

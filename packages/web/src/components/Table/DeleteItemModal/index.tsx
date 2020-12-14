@@ -2,7 +2,7 @@ import React from 'react';
 import { FiX } from 'react-icons/fi';
 import { useTheme } from 'styled-components';
 
-import useDeleteModal from '../../../hooks/useDeleteModal';
+import { useDeleteModal } from '../../../hooks';
 import Button from '../../Button';
 import Spinner from '../../Spinner';
 
