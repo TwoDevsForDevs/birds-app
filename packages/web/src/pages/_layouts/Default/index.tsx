@@ -1,9 +1,17 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import Header from '../../../components/Header';
 
-const DefaultLayout: React.FC = () => {
-  return <div />;
+import { Container, Main } from './styles';
+
+const DefaultLayout: React.FC = ({ children }) => {
+  return (
+    <Container>
+      <Header />
+
+      <Main>{children}</Main>
+    </Container>
+  );
 };
 
 export default DefaultLayout;
