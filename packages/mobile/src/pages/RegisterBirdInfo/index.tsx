@@ -17,7 +17,7 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import GoBackButton from '../../components/GoBackButton';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import Map from '../../components/Map';
+import BirdRegisterPickLocationMap from '../../components/BirdRegisterPickLocationMap';
 
 import {
   MainContent,
@@ -51,11 +51,6 @@ interface BirdRegister {
   obs: string;
 }
 
-interface RegisterBirdFormData {
-  location: string;
-  obs: string;
-}
-
 const RegisterBirdInfo: React.FC = () => {
   const { colors } = useTheme();
   const route = useRoute();
@@ -75,11 +70,9 @@ const RegisterBirdInfo: React.FC = () => {
 
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const [birdRegister, setBirdRegister] = useState<BirdRegister>({
-    register_date: format(new Date(), 'dd/MM/yyyy'),
-    obs: '',
-    location: ''
-  });
+  const [birdRegister, setBirdRegister] = useState<BirdRegister>(
+    {} as BirdRegister
+  );
 
   const handleModal = useCallback(() => {
     setToggleModal(!toggleModal);
@@ -91,6 +84,7 @@ const RegisterBirdInfo: React.FC = () => {
         ...register,
         location: `${latitude}, ${longitude}`
       }));
+      formRef.current?.setFieldValue('location', `${latitude}, ${longitude}`);
 
       handleModal();
     },
@@ -108,6 +102,10 @@ const RegisterBirdInfo: React.FC = () => {
         ...register,
         register_date: format(date, 'dd/MM/yyyy')
       }));
+      formRef.current?.setFieldValue(
+        'register_date',
+        format(date, 'dd/MM/yyyy')
+      );
     }
   }, []);
 
@@ -116,7 +114,7 @@ const RegisterBirdInfo: React.FC = () => {
   }, []);
 
   const handleRegisterBird = useCallback(
-    async (data: RegisterBirdFormData) => {
+    async (data: BirdRegister) => {
       try {
         setLoading(true);
 
@@ -223,7 +221,7 @@ const RegisterBirdInfo: React.FC = () => {
         </Button>
       </MainContent>
       {toggleModal && (
-        <Map
+        <BirdRegisterPickLocationMap
           handleModal={handleModal}
           handleMarkPosition={handleMarkPosition}
         />
