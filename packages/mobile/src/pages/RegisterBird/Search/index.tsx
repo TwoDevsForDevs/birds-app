@@ -30,7 +30,7 @@ const Search: React.FC = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [birds, setBirds] = useState([]);
+  const [birds, setBirds] = useState<Bird[]>([]);
 
   const handleInputFocus = useCallback(() => {
     setIsFocused(true);
