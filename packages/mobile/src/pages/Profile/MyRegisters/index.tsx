@@ -9,7 +9,6 @@ import Placeholder from './Placeholder';
 import BirdGallery from '../../../components/BirdGallery';
 
 import { Container, NoRegisterContent, NoRegisterText } from './styles';
-import Button from '../../../components/Button';
 
 interface BirdRegister {
   id: string;
@@ -36,6 +35,8 @@ const MyRegisters: React.FC = () => {
         setLoading(true);
 
         const response = await api.get(`birds-registers?user_id=${user.id}`);
+
+        console.log(response.data);
 
         setBirdRegisters(response.data);
       } catch (err) {
@@ -70,12 +71,9 @@ const MyRegisters: React.FC = () => {
             <NoRegisterText>
               Você ainda não possui nenhum registro cadastrado no app.
             </NoRegisterText>
-
-            <Button>Fazer cadastro de registro</Button>
           </NoRegisterContent>
         )}
       </Container>
-      {toggleModal && <BirdModal birdId={birdId} handleModal={handleModal} />}
     </>
   );
 };
