@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import { classToClass } from 'class-transformer';
 
-import CreateBirdService from '../services/CreateBirdService';
 import ListBirdsService from '../services/ListBirdsService';
 import ShowBirdService from '../services/ShowBirdService';
+import CreateBirdService from '../services/CreateBirdService';
+import DeleteBirdService from '../services/DeleteBirdService';
 
 export default class BirdController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -53,5 +54,17 @@ export default class BirdController {
     });
 
     return response.json(bird);
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { id: bird_id } = request.params;
+
+    const deleteBirdService = new DeleteBirdService();
+
+    await deleteBirdService.execute({
+      bird_id
+    });
+
+    return response.send();
   }
 }

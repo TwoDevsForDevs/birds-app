@@ -13,5 +13,6 @@ const birdController = new BirdController();
 birdsRouter.get('/', birdController.index);
 birdsRouter.get('/:id', birdController.show);
 birdsRouter.post('/', upload.single('image'), birdController.create);
+birdsRouter.delete('/:id', birdController.delete);
 
 export default birdsRouter;
