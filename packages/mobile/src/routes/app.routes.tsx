@@ -8,11 +8,12 @@ import { getBottomSpace } from 'react-native-iphone-x-helper';
 import Home from '../pages/Home';
 import AllBirds from '../pages/AllBirds';
 import Bird from '../pages/Bird';
-import Profile from '../pages/Profile';
+import Map from '../pages/Map';
 import RegisterBird from '../pages/RegisterBird';
 import RegisterBirdPickImage from '../pages/RegisterBirdPickImage';
 import RegisterBirdInfo from '../pages/RegisterBirdInfo';
 import RegisterBirdComplete from '../pages/RegisterBirdComplete';
+import Profile from '../pages/Profile';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -95,7 +96,7 @@ const AppRoutes: React.FC = () => {
       />
       <Tab.Screen
         name="Mapa"
-        component={Home}
+        component={Map}
         options={{
           tabBarIcon: ({ focused }) => {
             return (

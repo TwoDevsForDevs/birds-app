@@ -51,7 +51,7 @@ export default class CreateBirdsRegisters1600126232468
             default: 0
           },
           {
-            name: 'autorizated',
+            name: 'approved',
             type: 'boolean',
             default: false
           },

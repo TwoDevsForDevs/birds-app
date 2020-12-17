@@ -29,11 +29,14 @@ interface MapModalProps {
   handleMarkPosition: (markPosition: MarkedPosition) => void;
 }
 
-const Map: React.FC<MapModalProps> = ({ handleModal, handleMarkPosition }) => {
+const BirdRegisterPickLocationMap: React.FC<MapModalProps> = ({
+  handleModal,
+  handleMarkPosition
+}) => {
   const { colors } = useTheme();
 
   const [loading, setLoading] = useState(false);
-  const [currentRegion, setCurrentRegion] = useState<Region>({} as Region);
+  const [currentRegion, setCurrentRegion] = useState<Region | null>(null);
   const [markedPosition, setMarkedPosition] = useState<MarkedPosition | null>(
     null
   );
@@ -83,21 +86,25 @@ const Map: React.FC<MapModalProps> = ({ handleModal, handleMarkPosition }) => {
           {loading ? (
             <ActivityIndicator size="small" color={colors.black} />
           ) : (
-            <MapView
-              initialRegion={currentRegion}
-              style={{ ...StyleSheet.absoluteFillObject }}
-              onPress={handleMarkOnMap}
-            >
-              {markedPosition && (
-                <Marker
-                  coordinate={{
-                    latitude: markedPosition.latitude,
-                    longitude: markedPosition.longitude
-                  }}
-                  draggable
-                />
+            <>
+              {currentRegion && (
+                <MapView
+                  initialRegion={currentRegion}
+                  style={{ ...StyleSheet.absoluteFillObject }}
+                  onPress={handleMarkOnMap}
+                >
+                  {markedPosition && (
+                    <Marker
+                      coordinate={{
+                        latitude: markedPosition.latitude,
+                        longitude: markedPosition.longitude
+                      }}
+                      draggable
+                    />
+                  )}
+                </MapView>
               )}
-            </MapView>
+            </>
           )}
         </Content>
         {markedPosition && (
@@ -110,4 +117,4 @@ const Map: React.FC<MapModalProps> = ({ handleModal, handleMarkPosition }) => {
   );
 };
 
-export default Map;
+export default BirdRegisterPickLocationMap;

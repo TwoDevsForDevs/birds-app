@@ -37,7 +37,7 @@ export default class BirdController {
       conservation,
       habitat,
       diet,
-      wikiaves_link
+      wikiaves_link = ''
     } = request.body;
 
     const createBirdService = new CreateBirdService();
@@ -48,7 +48,7 @@ export default class BirdController {
       conservation,
       habitat,
       diet,
-      image: request.file.filename || '',
+      image: request?.file?.filename || '',
       wikiaves_link
     });
 

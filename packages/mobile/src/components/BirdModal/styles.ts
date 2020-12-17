@@ -1,19 +1,14 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View``;
-
-export const Content = styled.View`
-  flex: 1;
-  padding: 24px;
-  align-items: center;
-  background: ${({ theme }) => theme.colors.background};
+export const Container = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false
+})`
+  flex: 0.9;
+  background: ${({ theme }) => theme.colors.white};
   border-radius: ${({ theme }) => theme.radius.default};
 `;
 
-export const CloseButton = styled.TouchableOpacity`
-  width: 100%;
-  margin-bottom: 8px;
-`;
+export const Content = styled.View``;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface LikeButtonProps {
@@ -28,16 +23,6 @@ export const LoadingContainer = styled.View`
   align-items: center;
   justify-content: center;
 `;
-
-export const Container = styled.ScrollView.attrs({
-  showsVerticalScrollIndicator: false
-})`
-  flex: 0.9;
-  background: ${({ theme }) => theme.colors.white};
-  border-radius: ${({ theme }) => theme.radius.default};
-`;
-
-export const Content = styled.View``;
 
 export const CloseModalButton = styled.TouchableOpacity`
   width: 32px;
@@ -63,7 +48,7 @@ export const BirdImage = styled.Image`
 `;
 
 export const BirdDetails = styled.View`
-  padding: 32px;
+  padding: 24px;
 `;
 
 export const StatsContainer = styled.View`
@@ -161,12 +146,6 @@ export const Views = styled.Text`
   font-family: 'Roboto_400Regular';
   font-size: 12px;
   color: ${({ theme }) => theme.colors.grey};
-`;
-
-export const LikeButton = styled.TouchableOpacity`
-  flex-direction: row;
-  margin-top: 8px;
-  width: 100%;
 `;
 
 export const LikeText = styled.Text`
