@@ -10,7 +10,7 @@ class ShowBirdService {
   async execute({ bird_id }: IRequest): Promise<Bird | undefined> {
     const birdRepository = getRepository(Bird);
 
-    const bird = birdRepository.findOne({
+    const bird = await birdRepository.findOne({
       where: {
         id: bird_id,
         status: true
