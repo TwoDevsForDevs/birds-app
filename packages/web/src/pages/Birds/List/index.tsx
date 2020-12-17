@@ -70,28 +70,34 @@ const BirdsList: React.FC = () => {
       />
 
       <TableContainer title="Pássaros" loading={loading}>
-        <thead>
-          <tr>
-            <th>FOTO</th>
-            <th>NOME POPULAR</th>
-            <th>NOME CIENTÍFICO</th>
-            <th>AÇÕES</th>
-          </tr>
-        </thead>
+        {birds.length === 0 ? (
+          <span>Nenhum registro cadastrado</span>
+        ) : (
+          <>
+            <thead>
+              <tr>
+                <th>FOTO</th>
+                <th>NOME POPULAR</th>
+                <th>NOME CIENTÍFICO</th>
+                <th>AÇÕES</th>
+              </tr>
+            </thead>
 
-        <tbody>
-          {birds.map(bird => (
-            <tr key={bird.id}>
-              <td>
-                <img src={bird.image_url} alt={bird.popular_name} />
-              </td>
-              <td>{bird.popular_name}</td>
-              <td>{bird.scientific_name}</td>
+            <tbody>
+              {birds.map(bird => (
+                <tr key={bird.id}>
+                  <td>
+                    <img src={bird.image_url} alt={bird.popular_name} />
+                  </td>
+                  <td>{bird.popular_name}</td>
+                  <td>{bird.scientific_name}</td>
 
-              <ActionsCell id={bird.id} itemId={bird.id} />
-            </tr>
-          ))}
-        </tbody>
+                  <ActionsCell id={bird.id} itemId={bird.id} />
+                </tr>
+              ))}
+            </tbody>
+          </>
+        )}
       </TableContainer>
     </>
   );
