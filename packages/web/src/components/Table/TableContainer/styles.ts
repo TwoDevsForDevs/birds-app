@@ -13,7 +13,7 @@ export const Header = styled.header`
   display: flex;
   flex-direction: column;
 
-  div {
+  > div {
     margin-top: 32px;
 
     display: flex;
@@ -39,6 +39,37 @@ export const Header = styled.header`
         margin-right: 8px;
       }
     }
+  }
+`;
+
+export const SearchInputContainer = styled.div`
+  position: relative;
+
+  input {
+    background: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.lightBlack};
+    border: 1px solid ${({ theme }) => theme.colors.inputBorder};
+    border-radius: ${({ theme }) => theme.radius.small};
+    height: 36px;
+    width: 240px;
+    padding: 8px 16px 8px 40px;
+    transition: box-shadow 0.1s, border-color 0.1s;
+
+    &:focus {
+      border-color: ${({ theme }) => theme.colors.primary};
+      box-shadow: 0 0 0 1px ${({ theme }) => theme.colors.primary};
+    }
+
+    &::placeholder {
+      color: ${({ theme }) => theme.colors.inputPlaceholder};
+    }
+  }
+
+  svg {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 `;
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiPlus } from 'react-icons/fi';
+import { FiPlus, FiSearch } from 'react-icons/fi';
 import { useTheme } from 'styled-components';
 
-import { Container, Header, Table } from './styles';
+import { Container, Header, SearchInputContainer, Table } from './styles';
 
 interface TableContainerProps {
   title: string;
@@ -24,7 +24,10 @@ const TableContainer: React.FC<TableContainerProps> = ({
         <h1>{title}</h1>
 
         <div>
-          <span>teste</span>
+          <SearchInputContainer>
+            <input type="text" placeholder="Buscar por pássaros" />
+            <FiSearch color={colors.grey} size={16} />
+          </SearchInputContainer>
 
           <Link to={`${location.pathname}/new`}>
             <FiPlus color={colors.white} size={20} />
