@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Container as Button } from '../../Button/styles';
+import { Container as Button } from '../../Form/Button/styles';
 import Modal from '../../Modal';
 
 export const Container = styled(Modal)``;

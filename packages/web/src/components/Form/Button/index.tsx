@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes } from 'react';
 
-import Spinner from '../Spinner';
+import Spinner from '../../Spinner';
 
 import { Container } from './styles';
 

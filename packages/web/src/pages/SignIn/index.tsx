@@ -3,8 +3,7 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { FormHandles } from '@unform/core';
 
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import { Input, Button } from '../../components/Form';
 import { useAuth } from '../../hooks';
 import getValidationErrors from '../../utils/getValidationErrors';
 

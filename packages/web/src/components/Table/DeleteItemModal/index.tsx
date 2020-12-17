@@ -3,7 +3,7 @@ import { FiX } from 'react-icons/fi';
 import { useTheme } from 'styled-components';
 
 import { useDeleteModal } from '../../../hooks';
-import Button from '../../Button';
+import { Button } from '../../Form';
 import Spinner from '../../Spinner';
 
 import { Container, CloseModalButton, Content } from './styles';
