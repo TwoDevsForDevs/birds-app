@@ -76,7 +76,11 @@ const Home: React.FC = () => {
           type="password"
         />
 
-        <Button type="submit" loading={loading} style={{ height: 45 }}>
+        <Button
+          type="submit"
+          loading={loading}
+          style={{ height: 45, marginTop: 16 }}
+        >
           Entrar no sistema
         </Button>
       </Form>
