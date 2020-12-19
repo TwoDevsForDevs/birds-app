@@ -36,7 +36,11 @@ const DeleteItemModal: React.FC<DeleteItemModalProps> = ({
         </main>
 
         <footer>
-          <Button onClick={handleToggleModal} background={colors.white}>
+          <Button
+            onClick={handleToggleModal}
+            color={colors.primary}
+            background={colors.white}
+          >
             Cancelar
           </Button>
 
