@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Form as UnForm } from '@unform/web';
 
-import { Container as Input } from '../../components/Input/styles';
+import { Container as Input } from '../../components/Form/Input/styles';
 
 export const Container = styled.div`
   height: 100%;
