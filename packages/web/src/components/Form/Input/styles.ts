@@ -13,7 +13,6 @@ export const Container = styled.div<ContainerProps>`
     margin-bottom: 8px;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.black};
-    text-transform: uppercase;
   }
 
   input {
