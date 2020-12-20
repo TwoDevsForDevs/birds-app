@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Form as Unform } from '@unform/web';
 
 import ButtonComponent from '../Button';
+import { Container as Input } from '../Input/styles';
 
 export const Container = styled.div`
   flex: 1;
@@ -34,4 +35,8 @@ export const Form = styled(Unform)`
   padding: 28px 32px;
   margin-top: 28px;
   border-radius: ${({ theme }) => theme.radius.small};
+
+  ${Input} + ${Input} {
+    margin-top: 16px;
+  }
 `;
