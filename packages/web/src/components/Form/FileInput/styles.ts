@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  margin-bottom: 24px;
+
+  display: flex;
+  justify-content: center;
+`;
 
 export const PreviewContainer = styled.label`
   width: 150px;
