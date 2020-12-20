@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { FormContainer } from '../../../components/Form';
+
 import api from '../../../services/api';
+import { FileInput, FormContainer, Input } from '../../../components/Form';
 
 interface Bird {
   id: string;
@@ -67,7 +68,11 @@ const BirdsForm: React.FC = () => {
       handleSubmit={handleSubmit}
       loadingSubmit={loadingSubmit}
     >
-      teste
+      <FileInput name="image_url" />
+
+      <Input name="popular_name" label="Nome popular" />
+      <Input name="scientific_name" label="Nome científico" />
+      <Input name="wikiaves_link" label="Link para Wiki Aves" />
     </FormContainer>
   );
 };
