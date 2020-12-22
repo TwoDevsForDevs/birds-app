@@ -14,7 +14,8 @@ class ShowBirdService {
       where: {
         id: bird_id,
         status: true
-      }
+      },
+      relations: ['conservation', 'habitat', 'diet']
     });
 
     return bird;

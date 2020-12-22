@@ -35,9 +35,9 @@ export default class BirdController {
     const {
       popular_name,
       scientific_name,
-      conservation,
-      habitat,
-      diet,
+      conservation_id,
+      habitat_id,
+      diet_id,
       wikiaves_link
     } = request.body;
 
@@ -46,9 +46,9 @@ export default class BirdController {
     const bird = await createBirdService.execute({
       popular_name,
       scientific_name,
-      conservation,
-      habitat,
-      diet,
+      conservation_id,
+      habitat_id,
+      diet_id,
       image: request.file.filename || '',
       wikiaves_link
     });

@@ -20,7 +20,8 @@ class ListBirdsService {
           scientific_name: Like(`%${search}%`),
           status: true
         }
-      ]
+      ],
+      relations: ['conservation', 'habitat', 'diet']
     });
 
     return birds;
