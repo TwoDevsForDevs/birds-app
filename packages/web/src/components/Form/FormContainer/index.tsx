@@ -4,14 +4,14 @@ import { FiChevronLeft, FiCheck } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 
 import Spinner from '../../Spinner';
-import { Container, Form, Button } from './styles';
+import { Container, InputsContainer, Button } from './styles';
 
 interface FormContainerProps {
   title: string;
   goBackTo: string;
   initialData: any;
   loadingInitialData: boolean;
-  handleSubmit: () => void;
+  handleSubmit: (data: FormData) => void;
   loadingSubmit: boolean;
   children: ReactNode;
 }
@@ -38,7 +38,7 @@ const FormContainer: React.ForwardRefRenderFunction<
   }, [history, goBackTo]);
 
   return (
-    <Container>
+    <Container ref={ref} onSubmit={handleSubmit} initialData={initialData}>
       <header>
         <h1>{title}</h1>
 
@@ -56,9 +56,7 @@ const FormContainer: React.ForwardRefRenderFunction<
       {loadingInitialData ? (
         <p>Carregando...</p>
       ) : (
-        <Form ref={ref} onSubmit={handleSubmit} initialData={initialData}>
-          {children}
-        </Form>
+        <InputsContainer>{children}</InputsContainer>
       )}
     </Container>
   );

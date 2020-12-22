@@ -4,7 +4,7 @@ import { Form as Unform } from '@unform/web';
 import ButtonComponent from '../Button';
 import { Container as Input } from '../Input/styles';
 
-export const Container = styled.div`
+export const Container = styled(Unform)`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@ export const Button = styled(ButtonComponent)`
   }
 `;
 
-export const Form = styled(Unform)`
+export const InputsContainer = styled.div`
   background: ${({ theme }) => theme.colors.white};
   padding: 28px 32px;
   margin-top: 28px;
