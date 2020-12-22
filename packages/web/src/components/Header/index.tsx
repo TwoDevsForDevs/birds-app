@@ -14,6 +14,9 @@ const Header: React.FC = () => {
           <NavLink to="/birds" activeClassName="selected">
             PÁSSAROS
           </NavLink>
+          <NavLink to="/diets" activeClassName="selected">
+            DIETAS
+          </NavLink>
           <NavLink to="/registers" activeClassName="selected">
             REGISTROS
           </NavLink>
