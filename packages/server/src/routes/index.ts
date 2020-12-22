@@ -7,6 +7,7 @@ import sessionsRouter from '../modules/users/routes/sessions.routes';
 import profileRouter from '../modules/users/routes/profile.routes';
 import dietsRouter from '../modules/diets/routes/diets.routes';
 import conservationsRouter from '../modules/conservations/routes/conservations.routes';
+import habitatsRouter from '../modules/habitats/routes/habitats.routes';
 import birdsRouter from '../modules/birds/routes/birds.routes';
 import birdsRegisterRouter from '../modules/birdsRegisters/routes/birdsRegisters.routes';
 
@@ -22,6 +23,7 @@ routes.use('/profile', profileRouter);
 
 routes.use('/diets', dietsRouter);
 routes.use('/conservations', conservationsRouter);
+routes.use('/habitats', habitatsRouter);
 routes.use('/birds', birdsRouter);
 routes.use('/birds-registers', birdsRegisterRouter);
 
