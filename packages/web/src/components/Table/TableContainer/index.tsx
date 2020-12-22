@@ -25,7 +25,7 @@ const TableContainer: React.FC<TableContainerProps> = ({
 
         <div>
           <SearchInputContainer>
-            <input type="text" placeholder="Buscar por pássaros" />
+            <input type="text" placeholder="Buscar por nome" />
             <FiSearch color={colors.grey} size={16} />
           </SearchInputContainer>
 
