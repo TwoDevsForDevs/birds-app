@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import api from '../../../services/api';
 import { FileInput, FormContainer, Input } from '../../../components/Form';
 
+import { InputBlock } from './styles';
+
 interface Bird {
   id: string;
   popular_name: string;
@@ -70,8 +72,10 @@ const BirdsForm: React.FC = () => {
     >
       <FileInput name="image_url" />
 
-      <Input name="popular_name" label="Nome popular" />
-      <Input name="scientific_name" label="Nome científico" />
+      <InputBlock>
+        <Input name="popular_name" label="Nome popular" />
+        <Input name="scientific_name" label="Nome científico" />
+      </InputBlock>
       <Input name="wikiaves_link" label="Link para Wiki Aves" />
     </FormContainer>
   );
