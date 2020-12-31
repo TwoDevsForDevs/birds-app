@@ -10,7 +10,7 @@ import { useField } from '@unform/core';
 import { MdInsertPhoto } from 'react-icons/md';
 import { useTheme } from 'styled-components';
 
-import { Container, PreviewContainer } from './styles';
+import { Container, PreviewContainer, Error } from './styles';
 
 interface Props {
   name: string;
@@ -23,7 +23,7 @@ const FileInput: React.FC<InputProps> = ({ name, ...rest }) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { fieldName, registerField, defaultValue } = useField(name);
+  const { fieldName, registerField, defaultValue, error } = useField(name);
 
   const [preview, setPreview] = useState(defaultValue);
 
@@ -55,7 +55,7 @@ const FileInput: React.FC<InputProps> = ({ name, ...rest }) => {
 
   return (
     <Container>
-      <PreviewContainer htmlFor="image">
+      <PreviewContainer htmlFor="image" isErrored={!!error}>
         {preview ? (
           <img src={preview} alt="Preview" />
         ) : (
@@ -73,6 +73,8 @@ const FileInput: React.FC<InputProps> = ({ name, ...rest }) => {
           {...rest}
         />
       </PreviewContainer>
+
+      {!!error && <Error>{error}</Error>}
     </Container>
   );
 };

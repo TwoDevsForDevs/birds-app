@@ -1,17 +1,24 @@
 import styled from 'styled-components';
 
+interface PreviewContainerProps {
+  isErrored: boolean;
+}
+
 export const Container = styled.div`
   margin-bottom: 24px;
 
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
-export const PreviewContainer = styled.label`
+export const PreviewContainer = styled.label<PreviewContainerProps>`
   width: 150px;
   height: 150px;
   border-radius: ${({ theme }) => theme.radius.default};
-  border: 1px dashed ${({ theme }) => theme.colors.lightGrey};
+  border: 1px dashed
+    ${({ theme, isErrored }) =>
+      isErrored ? theme.colors.error : theme.colors.lightGrey};
   cursor: pointer;
 
   display: flex;
@@ -23,6 +30,7 @@ export const PreviewContainer = styled.label`
     width: 100%;
     height: 100%;
     border-radius: ${({ theme }) => theme.radius.default};
+    object-fit: cover;
   }
 
   span {
@@ -34,4 +42,10 @@ export const PreviewContainer = styled.label`
   input {
     display: none;
   }
+`;
+
+export const Error = styled.span`
+  color: ${({ theme }) => theme.colors.error};
+  font-weight: bold;
+  margin-top: 8px;
 `;
