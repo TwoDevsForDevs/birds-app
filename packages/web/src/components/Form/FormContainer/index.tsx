@@ -11,7 +11,7 @@ interface FormContainerProps {
   goBackTo: string;
   initialData: any;
   loadingInitialData: boolean;
-  handleSubmit: (data: FormData) => void;
+  handleSubmit: (data: any) => void;
   loadingSubmit: boolean;
   children: ReactNode;
 }
