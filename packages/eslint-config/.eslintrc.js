@@ -36,9 +36,11 @@ module.exports = {
     'camelcase': 'off',
     'no-use-before-define': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
+    'no-inner-declarations': 'off',
     '@typescript-eslint/no-unused-vars': ['error', {
       'argsIgnorePattern': '_'
     }],
+    'import/no-extraneous-dependencies': ['error', {'devDependencies': true}],
     'import/extensions': [
       'error',
       'ignorePackages',

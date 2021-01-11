@@ -3,8 +3,7 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { FormHandles } from '@unform/core';
 
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import { Input, Button } from '../../components/Form';
 import { useAuth } from '../../hooks';
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -76,7 +75,11 @@ const Home: React.FC = () => {
           type="password"
         />
 
-        <Button type="submit" loading={loading} style={{ height: 45 }}>
+        <Button
+          type="submit"
+          loading={loading}
+          style={{ height: 45, marginTop: 16 }}
+        >
           Entrar no sistema
         </Button>
       </Form>

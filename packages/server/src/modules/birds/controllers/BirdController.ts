@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import { classToClass } from 'class-transformer';
 
-import CreateBirdService from '../services/CreateBirdService';
 import ListBirdsService from '../services/ListBirdsService';
 import ShowBirdService from '../services/ShowBirdService';
+import CreateBirdService from '../services/CreateBirdService';
+import DeleteBirdService from '../services/DeleteBirdService';
 
 export default class BirdController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -34,10 +35,10 @@ export default class BirdController {
     const {
       popular_name,
       scientific_name,
-      conservation,
-      habitat,
-      diet,
-      wikiaves_link = ''
+      conservation_id,
+      habitat_id,
+      diet_id,
+      wikiaves_link
     } = request.body;
 
     const createBirdService = new CreateBirdService();
@@ -45,13 +46,25 @@ export default class BirdController {
     const bird = await createBirdService.execute({
       popular_name,
       scientific_name,
-      conservation,
-      habitat,
-      diet,
-      image: request?.file?.filename || '',
+      conservation_id,
+      habitat_id,
+      diet_id,
+      image: request.file.filename || '',
       wikiaves_link
     });
 
     return response.json(bird);
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { id: bird_id } = request.params;
+
+    const deleteBirdService = new DeleteBirdService();
+
+    await deleteBirdService.execute({
+      bird_id
+    });
+
+    return response.send();
   }
 }

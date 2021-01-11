@@ -1,3 +1,4 @@
 import useAuth from './useAuth';
+import useDeleteModal from './useDeleteModal';
 
-export { useAuth };
+export { useAuth, useDeleteModal };

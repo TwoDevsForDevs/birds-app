@@ -13,7 +13,6 @@ export const Container = styled.div<ContainerProps>`
     margin-bottom: 8px;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.black};
-    text-transform: uppercase;
   }
 
   input {
@@ -44,18 +43,10 @@ export const Container = styled.div<ContainerProps>`
       color: ${({ theme }) => theme.colors.inputPlaceholder};
     }
   }
-  span {
-    color: ${({ theme }) => theme.colors.error};
-    font-weight: bold;
-    margin-top: 10px;
-
-    display: flex;
-    align-items: center;
-
-    svg {
-      margin-right: 8px;
-    }
-  }
 `;
 
-export const Error = styled.span``;
+export const Error = styled.span`
+  color: ${({ theme }) => theme.colors.error};
+  font-weight: bold;
+  margin-top: 8px;
+`;

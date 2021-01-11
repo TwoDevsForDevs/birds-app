@@ -23,16 +23,16 @@ export default class CreateBirds1600125863654 implements MigrationInterface {
             isUnique: true
           },
           {
-            name: 'conservation',
-            type: 'varchar'
+            name: 'conservation_id',
+            type: 'uuid'
           },
           {
-            name: 'habitat',
-            type: 'varchar'
+            name: 'habitat_id',
+            type: 'uuid'
           },
           {
-            name: 'diet',
-            type: 'varchar'
+            name: 'diet_id',
+            type: 'uuid'
           },
           {
             name: 'image',
@@ -58,6 +58,32 @@ export default class CreateBirds1600125863654 implements MigrationInterface {
             name: 'updated_at',
             type: 'timestamp',
             default: 'now()'
+          }
+        ],
+        foreignKeys: [
+          {
+            name: 'Conservation',
+            referencedTableName: 'conservations',
+            referencedColumnNames: ['id'],
+            columnNames: ['conservation_id'],
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+          },
+          {
+            name: 'Habitat',
+            referencedTableName: 'habitats',
+            referencedColumnNames: ['id'],
+            columnNames: ['habitat_id'],
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+          },
+          {
+            name: 'Diet',
+            referencedTableName: 'diets',
+            referencedColumnNames: ['id'],
+            columnNames: ['diet_id'],
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
           }
         ]
       })

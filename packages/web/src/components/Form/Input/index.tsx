@@ -12,10 +12,9 @@ import { Container, Error } from './styles';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label: string;
-  placeholder: string;
 }
 
-const Input: React.FC<InputProps> = ({ name, label, placeholder, ...rest }) => {
+const Input: React.FC<InputProps> = ({ name, label, ...rest }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [isFocused, setIsFocused] = useState(false);
@@ -47,7 +46,6 @@ const Input: React.FC<InputProps> = ({ name, label, placeholder, ...rest }) => {
         onBlur={handleInputBlur}
         defaultValue={defaultValue}
         ref={inputRef}
-        placeholder={placeholder}
         {...rest}
       />
 

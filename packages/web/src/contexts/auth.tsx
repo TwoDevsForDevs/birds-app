@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import api from '../services/api';
@@ -30,24 +30,21 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<AuthState>({} as AuthState);
+  const [data, setData] = useState(() => {
+    const token = localStorage.getItem('@BirdsApp:token');
+    const user = localStorage.getItem('@BirdsApp:user');
 
-  useEffect(() => {
-    async function loadStoragedData(): Promise<AuthState> {
-      const token = localStorage.getItem('@BirdsApp:token');
-      const user = localStorage.getItem('@BirdsApp:user');
+    if (user && token) {
+      api.defaults.headers.authorization = `Bearer ${token}`;
 
-      if (token && user) {
-        api.defaults.headers.authorization = `Bearer ${token}`;
-
-        return { token, user: JSON.parse(user) };
-      }
-
-      return {} as AuthState;
+      return {
+        token,
+        user: JSON.parse(user)
+      };
     }
 
-    loadStoragedData();
-  }, []);
+    return {};
+  });
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', {

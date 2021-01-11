@@ -4,7 +4,7 @@ export default {
     black: '#444444',
     lightBlack: '#666666',
     grey: '#999999',
-    lightGrey: '#CCCCCC',
+    lightGrey: '#DDDDDD',
     white: '#FFFFFF',
     background: '#F5F5F5',
     inputBorder: '#DDDDDD',

@@ -6,9 +6,9 @@ import Bird from '../entities/Bird';
 interface Request {
   popular_name: string;
   scientific_name: string;
-  conservation: string;
-  habitat: string;
-  diet: string;
+  conservation_id: string;
+  habitat_id: string;
+  diet_id: string;
   image?: string;
   wikiaves_link?: string;
 }
@@ -17,9 +17,9 @@ class CreateBirdService {
   async execute({
     popular_name,
     scientific_name,
-    conservation,
-    habitat,
-    diet,
+    conservation_id,
+    habitat_id,
+    diet_id,
     image,
     wikiaves_link
   }: Request): Promise<Bird> {
@@ -35,9 +35,9 @@ class CreateBirdService {
     const bird = birdRepository.create({
       popular_name,
       scientific_name,
-      conservation,
-      habitat,
-      diet,
+      conservation_id,
+      habitat_id,
+      diet_id,
       image: filename,
       wikiaves_link
     });
