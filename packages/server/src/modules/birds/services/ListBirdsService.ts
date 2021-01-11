@@ -1,4 +1,4 @@
-import { getRepository, Like } from 'typeorm';
+import { getRepository, Raw } from 'typeorm';
 
 import Bird from '../entities/Bird';
 
@@ -13,11 +13,11 @@ class ListBirdsService {
     const birds = birdRepository.find({
       where: [
         {
-          popular_name: Like(`%${search}%`),
+          popular_name: Raw(alias => `${alias} ILIKE '%${search}%'`),
           status: true
         },
         {
-          scientific_name: Like(`%${search}%`),
+          scientific_name: Raw(alias => `${alias} ILIKE '%${search}%'`),
           status: true
         }
       ],

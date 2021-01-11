@@ -26,7 +26,7 @@ class CreateBirdService {
     const birdRepository = getRepository(Bird);
     const storageProvider = new StorageProvider();
 
-    let filename;
+    let filename = '';
 
     if (image) {
       filename = await storageProvider.saveFile(image);

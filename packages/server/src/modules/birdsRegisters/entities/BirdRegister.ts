@@ -27,7 +27,7 @@ class BirdRegister {
   @Column({ type: 'uuid', nullable: true })
   bird_id: string | null;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => Bird)
   @JoinColumn({ name: 'bird_id' })
   bird: Bird;
 
@@ -47,7 +47,7 @@ class BirdRegister {
   views: number;
 
   @Column('boolean')
-  autorizated: boolean;
+  approved: boolean;
 
   @Column('boolean')
   status: boolean;

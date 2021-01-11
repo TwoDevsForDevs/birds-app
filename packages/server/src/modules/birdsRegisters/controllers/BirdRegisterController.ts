@@ -7,13 +7,14 @@ import ShowBirdRegisterService from '../services/ShowBirdRegisterService';
 
 export default class BirdRegisterController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { bird_id, user_id } = request.query;
+    const { bird_id, user_id, search } = request.query;
 
     const listBirdRegisterService = new ListBirdRegisterService();
 
     const registers = await listBirdRegisterService.execute({
       bird_id,
-      user_id
+      user_id,
+      search
     });
 
     return response.json(classToClass(registers));
@@ -41,7 +42,7 @@ export default class BirdRegisterController {
     const register = await createBirdRegisterService.execute({
       owner_id,
       bird_id,
-      image: request.file.filename || '',
+      image: request.file.filename,
       location,
       register_date,
       obs
