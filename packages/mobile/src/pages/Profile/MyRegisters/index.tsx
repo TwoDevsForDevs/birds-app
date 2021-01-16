@@ -36,8 +36,6 @@ const MyRegisters: React.FC = () => {
 
         const response = await api.get(`birds-registers?user_id=${user.id}`);
 
-        console.log(response.data);
-
         setBirdRegisters(response.data);
       } catch (err) {
         setError(true);
