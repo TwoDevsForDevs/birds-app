@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
-import { Alert } from 'react-native';
+import UserAvatar from 'react-native-user-avatar';
+import { Alert, View } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as ImagePicker from 'expo-image-picker';
 import { useTheme } from 'styled-components';
@@ -18,7 +19,7 @@ import {
   Hello,
   UserName,
   UserAvatarButton,
-  UserAvatar
+  UserAvatarImage
 } from './styles';
 
 const Tab = createMaterialTopTabNavigator();
@@ -67,7 +68,11 @@ const Profile: React.FC = () => {
             <UserName>{user.name}</UserName>
           </HelloContainer>
           <UserAvatarButton onPress={handleUpdateAvatar}>
-            <UserAvatar source={{ uri: user.avatar_url }} />
+            {user.avatar_url ? (
+              <UserAvatarImage source={{ uri: user.avatar_url }} />
+            ) : (
+              <UserAvatar size={156} name={user.name} />
+            )}
           </UserAvatarButton>
         </Header>
       </Container>
