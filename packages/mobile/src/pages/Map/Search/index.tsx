@@ -31,6 +31,7 @@ const Search: React.FC<SearchProps> = ({ setSearch, searchLoading }) => {
         <InputContainer>
           <TextInput
             keyboardAppearance="light"
+            placeholder="Nome popular ou científico"
             placeholderTextColor={colors.grey}
             onChangeText={value => {
               setName(value);
