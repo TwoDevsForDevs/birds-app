@@ -77,7 +77,7 @@ export default class CreateBirdsRegisters1600126232468
             referencedTableName: 'users',
             referencedColumnNames: ['id'],
             columnNames: ['owner_id'],
-            onDelete: 'CASCADE',
+            onDelete: 'SET NULL',
             onUpdate: 'CASCADE'
           },
           {
