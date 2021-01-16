@@ -19,5 +19,6 @@ usersRouter.patch(
   upload.single('avatar'),
   userAvatarController.create
 );
+usersRouter.delete('/', authMiddleware, userController.delete);
 
 export default usersRouter;
