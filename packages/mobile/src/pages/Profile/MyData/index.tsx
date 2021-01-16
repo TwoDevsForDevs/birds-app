@@ -1,11 +1,5 @@
 import React, { useRef, useCallback } from 'react';
-import {
-  TextInput,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-  Alert
-} from 'react-native';
+import { TextInput, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import { useTheme } from 'styled-components';
@@ -20,7 +14,15 @@ import getValidationErrors from '../../../utils/getValidationErrors';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 
-import { Container, Info, Password, ButtonsContainer } from './styles';
+import {
+  Container,
+  Content,
+  Info,
+  Password,
+  ButtonsContainer,
+  TopButtons,
+  DownButtons
+} from './styles';
 
 interface ProfileFormData {
   name: string;
@@ -32,13 +34,44 @@ interface ProfileFormData {
 
 const MyData: React.FC = () => {
   const { colors } = useTheme();
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, signOut } = useAuth();
 
   const formRef = useRef<FormHandles>(null);
   const emailRef = useRef<TextInput>(null);
   const oldPasswordRef = useRef<TextInput>(null);
   const newPasswordRef = useRef<TextInput>(null);
   const confirmNewPasswordRef = useRef<TextInput>(null);
+
+  const deleteAccount = useCallback(async () => {
+    try {
+      await api.delete('/users');
+
+      Alert.alert('Conta deletada com sucesso!');
+
+      signOut();
+    } catch (err) {
+      Alert.alert(
+        'Erro ao deletar conta',
+        'Ocorreu um erro ao deletar sua conta, tente novamente.'
+      );
+    }
+  }, [signOut]);
+
+  const toggleDeleteAccountAlert = useCallback(() => {
+    Alert.alert(
+      'Tem certeza?',
+      'Esta ação irá deletar a sua conta e todas as informações pertences a ela.',
+      [
+        {
+          text: 'Deletar minha conta',
+          onPress: deleteAccount
+        },
+        {
+          text: 'Não'
+        }
+      ]
+    );
+  }, [deleteAccount]);
 
   const handleUpdateUser = useCallback(
     async (data: ProfileFormData) => {
@@ -62,7 +95,10 @@ const MyData: React.FC = () => {
               then: Yup.string().required('Campo obrigatório'),
               otherwise: Yup.string()
             })
-            .oneOf([Yup.ref('new_password'), null], 'Confirmação incorreta')
+            .oneOf(
+              [Yup.ref('new_password'), undefined],
+              'Confirmação incorreta'
+            )
         });
 
         await schema.validate(data, {
@@ -113,84 +149,98 @@ const MyData: React.FC = () => {
   );
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      enabled
-    >
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ flex: 1 }}
-      >
-        <Container>
-          <Form ref={formRef} onSubmit={handleUpdateUser} initialData={user}>
-            <Info>
-              <Input
-                name="name"
-                placeholder="Seu nome"
-                icon="user"
-                onSubmitEditing={() => {
-                  emailRef.current?.focus();
-                }}
-              />
-              <Input
-                ref={emailRef}
-                name="email"
-                autoCorrect={false}
-                autoCapitalize="none"
-                keyboardType="email-address"
-                placeholder="Seu email"
-                icon="mail"
-                onSubmitEditing={() => {
-                  oldPasswordRef.current?.focus();
-                }}
-              />
-            </Info>
-            <Password>
-              <Input
-                ref={oldPasswordRef}
-                name="old_password"
-                placeholder="Senha atual"
-                icon="lock"
-                secureTextEntry
-                onSubmitEditing={() => {
-                  newPasswordRef.current?.focus();
-                }}
-              />
-              <Input
-                ref={newPasswordRef}
-                name="new_password"
-                placeholder="Nova senha"
-                icon="lock"
-                secureTextEntry
-                onSubmitEditing={() => {
-                  confirmNewPasswordRef.current?.focus();
-                }}
-              />
-              <Input
-                ref={confirmNewPasswordRef}
-                name="confirm_new_password"
-                placeholder="Confirmar nova senha"
-                icon="lock"
-                secureTextEntry
-              />
-            </Password>
-          </Form>
-          <ButtonsContainer>
-            <Button
-              onPress={() => {
-                formRef.current?.submitForm();
-              }}
-            >
-              Atualizar dados
-            </Button>
-            <Button color={colors.white} background={colors.error}>
-              Deletar minha conta
-            </Button>
-          </ButtonsContainer>
-        </Container>
-      </ScrollView>
-    </KeyboardAvoidingView>
+    <>
+      <Container>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          enabled
+        >
+          <Content>
+            <Form ref={formRef} onSubmit={handleUpdateUser} initialData={user}>
+              <Info>
+                <Input
+                  name="name"
+                  placeholder="Seu nome"
+                  icon="user"
+                  onSubmitEditing={() => {
+                    emailRef.current?.focus();
+                  }}
+                />
+                <Input
+                  ref={emailRef}
+                  name="email"
+                  autoCorrect={false}
+                  autoCapitalize="none"
+                  keyboardType="email-address"
+                  placeholder="Seu email"
+                  icon="mail"
+                  onSubmitEditing={() => {
+                    oldPasswordRef.current?.focus();
+                  }}
+                />
+              </Info>
+              <Password>
+                <Input
+                  ref={oldPasswordRef}
+                  name="old_password"
+                  placeholder="Senha atual"
+                  icon="lock"
+                  secureTextEntry
+                  onSubmitEditing={() => {
+                    newPasswordRef.current?.focus();
+                  }}
+                />
+                <Input
+                  ref={newPasswordRef}
+                  name="new_password"
+                  placeholder="Nova senha"
+                  icon="lock"
+                  secureTextEntry
+                  onSubmitEditing={() => {
+                    confirmNewPasswordRef.current?.focus();
+                  }}
+                />
+                <Input
+                  ref={confirmNewPasswordRef}
+                  name="confirm_new_password"
+                  placeholder="Confirmar nova senha"
+                  icon="lock"
+                  secureTextEntry
+                />
+              </Password>
+            </Form>
+            <ButtonsContainer>
+              <TopButtons>
+                <Button
+                  onPress={() => {
+                    formRef.current?.submitForm();
+                  }}
+                >
+                  Atualizar dados
+                </Button>
+                <Button
+                  color={colors.white}
+                  background={colors.error}
+                  onPress={signOut}
+                >
+                  Sair
+                </Button>
+              </TopButtons>
+              <DownButtons>
+                <Button
+                  color={colors.white}
+                  background={colors.error}
+                  onPress={toggleDeleteAccountAlert}
+                >
+                  Deletar minha conta
+                </Button>
+              </DownButtons>
+            </ButtonsContainer>
+          </Content>
+        </KeyboardAvoidingView>
+      </Container>
+    </>
   );
 };
 
