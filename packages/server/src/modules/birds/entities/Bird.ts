@@ -3,14 +3,19 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  OneToMany
 } from 'typeorm';
 import { Expose } from 'class-transformer';
+import BirdRegister from '../../birdsRegisters/entities/BirdRegister';
 
 @Entity('birds')
 class Bird {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @OneToMany(() => BirdRegister, register => register.bird)
+  registers: BirdRegister[];
 
   @Column('varchar')
   popular_name: string;
