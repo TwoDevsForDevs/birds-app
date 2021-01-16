@@ -31,7 +31,7 @@ export const UserAvatarButton = styled.TouchableOpacity`
   padding-top: 16px;
 `;
 
-export const UserAvatar = styled.Image`
+export const UserAvatarImage = styled.Image`
   width: 156px;
   height: 156px;
   border-radius: 73px;
