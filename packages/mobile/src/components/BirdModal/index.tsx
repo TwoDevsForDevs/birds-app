@@ -66,8 +66,6 @@ const BirdModal: React.FC<BirdModalProps> = ({
     async function getRegisterAndAddViewOnIt() {
       const response = await api.get(`birds-registers/${register_id}`);
 
-      console.log(response.data);
-
       setRegisterData(response.data);
 
       await api.post('/birds-registers/views', {
