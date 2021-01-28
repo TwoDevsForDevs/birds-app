@@ -13,7 +13,7 @@ interface Request {
   new_password?: string;
 }
 
-class CreateUserService {
+class UpdateProfileService {
   async execute({
     user_id,
     name,
@@ -62,4 +62,4 @@ class CreateUserService {
   }
 }
 
-export default CreateUserService;
+export default UpdateProfileService;
