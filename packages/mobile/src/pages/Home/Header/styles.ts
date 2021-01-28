@@ -4,7 +4,7 @@ import Header from '../../../components/Header';
 
 export const Container = styled(Header)``;
 
-export const UserAvatar = styled.View`
+export const UserAvatarContainer = styled.View`
   width: 32px;
   height: 32px;
   box-shadow: ${({ theme }) => theme.shadows.default};

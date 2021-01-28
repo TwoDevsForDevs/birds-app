@@ -1,16 +1,13 @@
 import React, { useCallback } from 'react';
-import { Button } from 'react-native';
-import { Feather as Icon } from '@expo/vector-icons';
+import UserAvatar from 'react-native-user-avatar';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from 'styled-components';
 
 import { useAuth } from '../../../hooks';
 
 import {
   Container,
-  UserAvatar,
+  UserAvatarContainer,
   UserAvatarImage,
-  UserAvatarIcon,
   ActionsContainer,
   AllBirdsButton,
   AllBirdsButtonText
@@ -18,8 +15,7 @@ import {
 
 const Header: React.FC = () => {
   const navigation = useNavigation();
-  const { colors } = useTheme();
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
 
   const handleNavigateToAllBirds = useCallback(() => {
     navigation.navigate('AllBirds');
@@ -27,22 +23,13 @@ const Header: React.FC = () => {
 
   return (
     <Container>
-      <UserAvatar>
+      <UserAvatarContainer>
         {user.avatar_url ? (
-          <UserAvatarImage
-            source={{
-              uri:
-                'https://avatars3.githubusercontent.com/u/49207932?s=460&u=e60661f8a354bb248ba9adebf35a0eeef871b865&v=4'
-            }}
-          />
+          <UserAvatarImage source={{ uri: user.avatar_url }} />
         ) : (
-          <UserAvatarIcon>
-            <Icon name="user" color={colors.grey} size={20} />
-          </UserAvatarIcon>
+          <UserAvatar size={32} name={user.name} />
         )}
-      </UserAvatar>
-
-      <Button title="Sair" onPress={signOut} />
+      </UserAvatarContainer>
 
       <ActionsContainer>
         <AllBirdsButton onPress={handleNavigateToAllBirds}>
