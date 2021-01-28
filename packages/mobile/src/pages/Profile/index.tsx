@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import UserAvatar from 'react-native-user-avatar';
-import { Alert, View } from 'react-native';
+import { Alert } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as ImagePicker from 'expo-image-picker';
 import { useTheme } from 'styled-components';
