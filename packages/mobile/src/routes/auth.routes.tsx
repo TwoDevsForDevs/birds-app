@@ -4,6 +4,7 @@ import { useTheme } from 'styled-components';
 
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import ResetPassword from '../pages/ResetPassword';
 
 const Auth = createStackNavigator();
 
@@ -21,6 +22,7 @@ const AuthRoute: React.FC = () => {
     >
       <Auth.Screen name="SignIn" component={SignIn} />
       <Auth.Screen name="SignUp" component={SignUp} />
+      <Auth.Screen name="ResetPassword" component={ResetPassword} />
     </Auth.Navigator>
   );
 };

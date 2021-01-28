@@ -130,7 +130,7 @@ const SignIn: React.FC = () => {
 
             <ForgotPasswordButton
               onPress={() => {
-                console.log('Navegar para tela de esqueci senha');
+                navigation.navigate('ResetPassword');
               }}
             >
               <ForgotPasswordButtonText>
