@@ -15,6 +15,7 @@ const homeBirdController = new HomeBirdController();
 birdsRouter.get('/', birdController.index);
 birdsRouter.get('/:id', birdController.show);
 birdsRouter.post('/', upload.single('image'), birdController.create);
+birdsRouter.delete('/:id', birdController.delete);
 
 birdsRouter.get('/home/list', homeBirdController.index);
 

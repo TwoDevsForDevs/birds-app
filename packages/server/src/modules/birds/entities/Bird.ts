@@ -4,10 +4,16 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany
+  OneToMany,
+  ManyToOne,
+  JoinColumn
 } from 'typeorm';
 import { Expose } from 'class-transformer';
 import BirdRegister from '../../birdsRegisters/entities/BirdRegister';
+
+import Conservation from '../../conservations/entities/Conservation';
+import Habitat from '../../habitats/entities/Habitat';
+import Diet from '../../diets/entities/Diet';
 
 @Entity('birds')
 class Bird {
@@ -23,14 +29,26 @@ class Bird {
   @Column('varchar')
   scientific_name: string;
 
-  @Column('varchar')
-  conservation: string;
+  @Column('uuid')
+  conservation_id: string;
 
-  @Column('varchar')
-  habitat: string;
+  @ManyToOne(() => Conservation)
+  @JoinColumn({ name: 'conservation_id' })
+  conservation: Conservation;
 
-  @Column('varchar')
-  diet: string;
+  @Column('uuid')
+  habitat_id: string;
+
+  @ManyToOne(() => Habitat)
+  @JoinColumn({ name: 'habitat_id' })
+  habitat: Habitat;
+
+  @Column('uuid')
+  diet_id: string;
+
+  @ManyToOne(() => Diet)
+  @JoinColumn({ name: 'diet_id' })
+  diet: Diet;
 
   @Column('varchar')
   image: string;

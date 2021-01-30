@@ -30,12 +30,17 @@ module.exports = {
     'prettier/prettier': 'error',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'import/prefer-default-export': 'off',
     'react/jsx-filename-extension': [1, { 'extensions': ['.tsx'] }],
     'class-methods-use-this': 'off',
     'camelcase': 'off',
+    'no-use-before-define': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'no-inner-declarations': 'off',
     '@typescript-eslint/no-unused-vars': ['error', {
       'argsIgnorePattern': '_'
     }],
+    'import/no-extraneous-dependencies': ['error', {'devDependencies': true}],
     'import/extensions': [
       'error',
       'ignorePackages',

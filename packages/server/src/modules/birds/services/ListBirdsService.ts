@@ -20,7 +20,8 @@ class ListBirdsService {
           scientific_name: Raw(alias => `${alias} ILIKE '%${search}%'`),
           status: true
         }
-      ]
+      ],
+      relations: ['conservation', 'habitat', 'diet']
     });
 
     return birds;
